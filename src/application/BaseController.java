@@ -28,6 +28,9 @@ public class BaseController implements Initializable {
   JFXButton btn_inicio, btn_fim, btn_decisao, btn_processamento, btn_entrada, btn_saida;
   
   @FXML
+  JFXButton btn_move, btn_associate, btn_remove;
+  
+  @FXML
   AnchorPane root;
   
   Canvas canvas = new Canvas ( 600, 300 );
@@ -68,6 +71,24 @@ public class BaseController implements Initializable {
 		  cria_figura(criar_decisao());
 	  });
 	  
+	  //style="-fx-border-color: #790b77;"
+	  btn_move.setOnAction(e->{
+		  btn_move.setStyle("-fx-border-color: #790b77;");
+		  btn_associate.setStyle("");
+		  btn_remove.setStyle("");
+	  });
+	  
+	  btn_remove.setOnAction(e->{
+		  btn_remove.setStyle("-fx-border-color: #790b77;");
+		  btn_associate.setStyle("");
+		  btn_move.setStyle("");
+	  });
+	  
+	  btn_associate.setOnAction(e->{
+		  btn_associate.setStyle("-fx-border-color: #790b77;");
+		  btn_move.setStyle("");
+		  btn_remove.setStyle("");
+	  });
   };
   
   

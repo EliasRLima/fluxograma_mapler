@@ -33,6 +33,25 @@
                               <Insets bottom="15.0" top="10.0" />
                            </VBox.margin>
                         </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+                           <children>
+                              <JFXButton fx:id="btn_move" contentDisplay="CENTER" style="-fx-border-color: #790b77;" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon glyphName="PENCIL" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btn_associate" contentDisplay="CENTER" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon glyphName="ARROW_RIGHT" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btn_remove" contentDisplay="CENTER" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="RED" glyphName="CLOSE" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
                         <JFXButton fx:id="btn_inicio" text="INICIO">
                            <graphic>
                               <FontAwesomeIcon fill="#790b77" glyphName="CIRCLE_ALT" />
