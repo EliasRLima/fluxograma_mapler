@@ -34,49 +34,49 @@
                            </VBox.margin>
                         </HBox>
                         <JFXButton fx:id="btn_inicio" text="INICIO">
-                           <!--  <graphic>
-                              <FontAwesomeIcon fill="#ccc4c4" glyphName="QUESTION_CIRCLE" />
-                           </graphic>-->
+                           <graphic>
+                              <FontAwesomeIcon fill="#790b77" glyphName="CIRCLE_ALT" />
+                           </graphic>
                            <VBox.margin>
                               <Insets left="30.0" />
                            </VBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="btn_entrada" text="ENTRADA">
-                           <!--<graphic>
+                           <graphic>
                               <FontAwesomeIcon fill="#790b77" glyphName="ALIGN_JUSTIFY" />
-                           </graphic>-->
+                           </graphic>
                            <VBox.margin>
                               <Insets left="30.0" />
                            </VBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="btn_saida" text="SAIDA">
-                           <!--<graphic>
+                           <graphic>
                               <FontAwesomeIcon fill="#790b77" glyphName="DESKTOP" />
-                           </graphic>-->
+                           </graphic>
                            <VBox.margin>
                               <Insets left="30.0" />
                            </VBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="btn_decisao" text="DECISAO">
-                           <!--<graphic>
+                           <graphic>
                               <FontAwesomeIcon fill="#790b77" glyphName="SQUARE_ALT" rotate="45.0" />
-                           </graphic>-->
+                           </graphic>
                            <VBox.margin>
                               <Insets left="30.0" />
                            </VBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="btn_processamento" text="PROCESSAMENTO">
-                           <!--<graphic>
+                           <graphic>
                               <FontAwesomeIcon fill="#790b77" glyphName="SQUARE" />
-                           </graphic>-->
+                           </graphic>
                            <VBox.margin>
                               <Insets left="30.0" />
                            </VBox.margin>
                         </JFXButton>
                         <JFXButton fx:id="btn_fim" text="FIM">
-                           <!--<graphic>
+                           <graphic>
                               <FontAwesomeIcon fill="#790b77" glyphName="CIRCLE" />
-                           </graphic>-->
+                           </graphic>
                            <VBox.margin>
                               <Insets left="30.0" />
                            </VBox.margin>

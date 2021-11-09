@@ -47,6 +47,27 @@ public class BaseController implements Initializable {
 	  btn_processamento.setOnAction(e -> {
 		  cria_figura(criar_processamento());
 	  });
+	  
+	  btn_saida.setOnAction(e -> {
+		  cria_figura(criar_saida());
+	  });
+	  
+	  btn_entrada.setOnAction(e -> {
+		  cria_figura(criar_entrada());
+	  });
+	  
+	  btn_inicio.setOnAction(e -> {
+		  cria_figura(criar_inicio());
+	  });
+	  
+	  btn_fim.setOnAction(e -> {
+		  cria_figura(criar_fim());
+	  });
+	  
+	  btn_decisao.setOnAction(e -> {
+		  cria_figura(criar_decisao());
+	  });
+	  
   };
   
   
@@ -89,6 +110,60 @@ public class BaseController implements Initializable {
 		  processamento = new AnchorPane();
 	  }
 	  return processamento;
+  }
+  
+  private AnchorPane criar_saida() {
+	  AnchorPane saida;
+	  try {
+		  saida = FXMLLoader.load(getClass().getResource("saida.fxml"));
+	  }catch(Exception e) {
+		  saida = new AnchorPane();
+	  }
+	  return saida;
+  }
+  
+  private AnchorPane criar_entrada() {
+	  AnchorPane entrada;
+	  try {
+		  entrada = FXMLLoader.load(getClass().getResource("entrada.fxml"));
+	  }catch(Exception e) {
+		  entrada = new AnchorPane();
+		  //System.out.println(e.getMessage());
+	  }
+	  return entrada;
+  }
+  
+  private AnchorPane criar_inicio() {
+	  AnchorPane inicio;
+	  try {
+		  inicio = FXMLLoader.load(getClass().getResource("inicio.fxml"));
+	  }catch(Exception e) {
+		  inicio = new AnchorPane();
+		  //System.out.println(e.getMessage());
+	  }
+	  return inicio;
+  }
+  
+  private AnchorPane criar_fim() {
+	  AnchorPane fim;
+	  try {
+		  fim = FXMLLoader.load(getClass().getResource("fim.fxml"));
+	  }catch(Exception e) {
+		  fim = new AnchorPane();
+		  //System.out.println(e.getMessage());
+	  }
+	  return fim;
+  }
+  
+  private AnchorPane criar_decisao() {
+	  AnchorPane decisao;
+	  try {
+		  decisao = FXMLLoader.load(getClass().getResource("decisao.fxml"));
+	  }catch(Exception e) {
+		  decisao = new AnchorPane();
+		  //System.out.println(e.getMessage());
+	  }
+	  return decisao;
   }
 
 }
