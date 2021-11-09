@@ -33,30 +33,24 @@ public class BaseController implements Initializable {
   Canvas canvas = new Canvas ( 600, 300 );
   GraphicsContext ctx = canvas.getGraphicsContext2D ( );
   double x = 0, y = 0;
-  private ArrayList <AnchorPane> nosObjct;
   
-  AnchorPane processamento;
-  
-  Ellipse elipse = new Ellipse ( 30, 30 );
-  Circle circle = new Circle ( 20 );
-  Rectangle quadr = new Rectangle ( 40, 40 );
-  Rectangle rect = new Rectangle ( 100, 40 );
-
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
 	  
-	  try {
-		  processamento = FXMLLoader.load(getClass().getResource("processamento.fxml"));
-	  }catch(Exception e) {
-		  processamento = new AnchorPane();
-	  }
-	  
-	  cria_figuras ( );
-      root.getChildren ( ).add ( canvas );
-      root.getChildren ( ).addAll ( nosObjct );
+	  btns ();
+	  root.getChildren ( ).add ( canvas );
+      
   }
   
-  public void arrastaItens ( final AnchorPane figuras ) {
+  private void btns () {
+	  
+	  btn_processamento.setOnAction(e -> {
+		  cria_figura(criar_processamento());
+	  });
+  };
+  
+  
+  private void arrastaItens ( final AnchorPane figuras ) {
       figuras.setOnMousePressed ( new EventHandler < MouseEvent > ( ) {
            @Override
            public void handle ( MouseEvent mouseEvent ) {
@@ -80,14 +74,21 @@ public class BaseController implements Initializable {
       } );
   }
   
-  public void cria_figuras ( ) {
-      nosObjct = new ArrayList <> ( );
-      processamento.setLayoutX(0);
-      processamento.setLayoutY(0);
-      nosObjct.add(processamento);
-      for ( AnchorPane moveFiguras : nosObjct ) {
-           arrastaItens ( moveFiguras );
-      }
+  private void cria_figura (AnchorPane ap) {
+      ap.setLayoutX(0);
+      ap.setLayoutY(0);
+      arrastaItens ( ap );
+      root.getChildren ( ).add (ap);
+  }
+  
+  private AnchorPane criar_processamento() {
+	  AnchorPane processamento;
+	  try {
+		  processamento = FXMLLoader.load(getClass().getResource("processamento.fxml"));
+	  }catch(Exception e) {
+		  processamento = new AnchorPane();
+	  }
+	  return processamento;
   }
 
 }
