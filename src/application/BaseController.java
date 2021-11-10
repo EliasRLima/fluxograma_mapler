@@ -37,6 +37,9 @@ public class BaseController implements Initializable {
   GraphicsContext ctx = canvas.getGraphicsContext2D ( );
   double x = 0, y = 0;
   
+  //esta variavel representa a acao que o mouse ira fazer ao tocar uma figura: 1 = mover, 2 = remover, 3 = associar
+  private int mouse_status = 1; //mover
+  
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
 	  
@@ -76,18 +79,24 @@ public class BaseController implements Initializable {
 		  btn_move.setStyle("-fx-border-color: #790b77;");
 		  btn_associate.setStyle("");
 		  btn_remove.setStyle("");
+		  
+		  mouse_status = 1;//mover
 	  });
 	  
 	  btn_remove.setOnAction(e->{
 		  btn_remove.setStyle("-fx-border-color: #790b77;");
 		  btn_associate.setStyle("");
 		  btn_move.setStyle("");
+		  
+		  mouse_status = 2;//remover
 	  });
 	  
 	  btn_associate.setOnAction(e->{
 		  btn_associate.setStyle("-fx-border-color: #790b77;");
 		  btn_move.setStyle("");
 		  btn_remove.setStyle("");
+		  
+		  mouse_status = 3;//ligacoes
 	  });
   };
   
@@ -96,22 +105,32 @@ public class BaseController implements Initializable {
       figuras.setOnMousePressed ( new EventHandler < MouseEvent > ( ) {
            @Override
            public void handle ( MouseEvent mouseEvent ) {
-                x = figuras.getLayoutX ( ) - mouseEvent.getSceneX ( );
-                y = figuras.getLayoutY ( ) - mouseEvent.getSceneY ( );
-                figuras.setCursor ( Cursor.CROSSHAIR );
+        	  if(mouse_status == 1) {
+        		  x = figuras.getLayoutX ( ) - mouseEvent.getSceneX ( );
+                  y = figuras.getLayoutY ( ) - mouseEvent.getSceneY ( );
+                  figuras.setCursor ( Cursor.CROSSHAIR );
+        	  }
            }
       } );
       figuras.setOnMouseReleased ( new EventHandler < MouseEvent > ( ) {
            @Override
            public void handle ( MouseEvent mouseEvent ) {
-                figuras.setCursor ( Cursor.HAND );
+        	   if(mouse_status == 1) {
+        		   figuras.setCursor ( Cursor.HAND );
+         	  }else if(mouse_status == 2) {
+         		  root.getChildren().remove(figuras);
+         	  }
+               
            }
       } );
       figuras.setOnMouseDragged ( new EventHandler < MouseEvent > ( ) {
            @Override
            public void handle ( MouseEvent mouseEvent ) {
-                figuras.setLayoutX ( mouseEvent.getSceneX ( ) + x );
-                figuras.setLayoutY ( mouseEvent.getSceneY ( ) + y );
+        	   if(mouse_status == 1) {
+        		   figuras.setLayoutX ( mouseEvent.getSceneX ( ) + x );
+                   figuras.setLayoutY ( mouseEvent.getSceneY ( ) + y );
+         	  }
+                
            }
       } );
   }
