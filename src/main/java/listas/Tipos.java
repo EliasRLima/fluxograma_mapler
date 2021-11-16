@@ -1,4 +1,4 @@
-package figuras;
+package listas;
 
 public enum Tipos {
 	

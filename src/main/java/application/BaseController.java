@@ -22,9 +22,11 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import listas.TiposAlinhamento;
 
 import com.jfoenix.controls.JFXButton;
 
+import diagrama.Associacao;
 import figuras.Decisao;
 import figuras.Entrada;
 import figuras.Fim;
@@ -171,15 +173,18 @@ public class BaseController implements Initializable {
       root.getChildren ( ).add (ap);
   }
   
-  private void criar_linha(AnchorPane start, AnchorPane end) {
+  private void criar_linha(Associacao as) {
 	  
-	  Center startCenter = new Center(start);
-	  Center endCenter   = new Center(end);
+	  Center startCenter = new Center(as.getPane1());
+	  Center endCenter   = new Center(as.getPane2());
+	  
+	  TiposAlinhamento alinhamento_ap1 = TiposAlinhamento.getPorNome(as.getTipo_pane1().name());
+	  TiposAlinhamento alinhamento_ap2 = TiposAlinhamento.getPorNome(as.getTipo_pane2().name());
 
-	  Line line = new Line(startCenter.centerXProperty().intValue(),
-	          			   startCenter.centerYProperty().intValue(),
-	          			   endCenter.centerXProperty().intValue(),
-	          			   endCenter.centerYProperty().intValue());
+	  Line line = new Line(startCenter.centerXProperty().intValue() + alinhamento_ap1.getAlinhamento(),
+	          			   startCenter.centerYProperty().intValue() + alinhamento_ap1.getAlinhamento(),
+	          			   endCenter.centerXProperty().intValue() + alinhamento_ap2.getAlinhamento(),
+	          			   endCenter.centerYProperty().intValue() + alinhamento_ap2.getAlinhamento());
 	  
 	  root.getChildren ( ).add (line);
 	  

@@ -1,8 +1,8 @@
 package diagrama;
 
-import figuras.Tipos;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
+import listas.Tipos;
 
 public class Associacao {
 
