@@ -13,6 +13,10 @@ import javafx.stage.StageStyle;
 /**
  * Classe principal para executar a aplicação
  */
+
+/*
+ * <!-- --module-path "C:\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.web -Djava.library.path="C:\javafx-sdk-17.0.1\lib" -->
+*/
 public class FX_Inicio extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
