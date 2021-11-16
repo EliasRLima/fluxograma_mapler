@@ -2,13 +2,14 @@ package application;
 
 import java.net.URL;
 
+
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
+//import javafx.stage.StageStyle;
 
 /**
  * Classe principal para executar a aplicação

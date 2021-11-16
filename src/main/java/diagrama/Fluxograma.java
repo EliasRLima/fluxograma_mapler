@@ -42,4 +42,8 @@ public class Fluxograma {
 		fluxo.add(as);
 	}
 	
+	public Associacao buscaAssociacao(AnchorPane ap) {
+		return null;
+	}
+	
 }
