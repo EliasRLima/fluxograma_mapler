@@ -17,8 +17,11 @@ import javafx.stage.Stage;
 
 /*
  * <!-- --module-path "C:\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.web -Djava.library.path="C:\javafx-sdk-17.0.1\lib" -->
+ * --module-path "C:\javafx-sdk-17.0.1\lib" --add-modules javafx.controls,javafx.fxml,javafx.base,javafx.graphics,javafx.media,javafx.web
+ *	-Djava.library.path="C:\javafx-sdk-17.0.1\lib"
 */
-public class FX_Inicio extends Application {
+
+public class FxInicio extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		//InicioService.iniciarClasse(stage);
