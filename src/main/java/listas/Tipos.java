@@ -2,7 +2,9 @@ package listas;
 
 public enum Tipos {
 	
-	DECISAO(1), //somente decisao aceita mais de uma ligacao //limite de tres ligacoes
+	/*Todos os tipos podem receber varias ligaçoes, porem somente aqueles com valor (1) podem apontar para varios*/
+	
+	DECISAO(1), //somente decisao aceita apontar mais de uma ligacao //limite de tres ligacoes
 	ENTRADA(0),
 	SAIDA(0),
 	FIM(0),
