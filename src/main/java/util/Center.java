@@ -1,4 +1,4 @@
-package application;
+package util;
 
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
@@ -7,7 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 
-class Center {
+public class Center {
     private ReadOnlyDoubleWrapper centerX = new ReadOnlyDoubleWrapper();
     private ReadOnlyDoubleWrapper centerY = new ReadOnlyDoubleWrapper();
 
@@ -29,11 +29,11 @@ class Center {
         centerY.set(bounds.getMinY() + bounds.getHeight() / 2);
     }
 
-    ReadOnlyDoubleProperty centerXProperty() {
+    public ReadOnlyDoubleProperty centerXProperty() {
         return centerX.getReadOnlyProperty();
     }
 
-    ReadOnlyDoubleProperty centerYProperty() {
+    public ReadOnlyDoubleProperty centerYProperty() {
         return centerY.getReadOnlyProperty();
     }
 }

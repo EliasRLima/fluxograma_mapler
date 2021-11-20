@@ -23,6 +23,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import listas.TiposAlinhamento;
+import util.Center;
 
 import com.jfoenix.controls.JFXButton;
 
