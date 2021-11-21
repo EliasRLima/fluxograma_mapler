@@ -28,6 +28,7 @@ import util.Center;
 import com.jfoenix.controls.JFXButton;
 
 import diagrama.Associacao;
+import diagrama.Fluxograma;
 import figuras.Decisao;
 import figuras.Entrada;
 import figuras.Fim;
@@ -61,6 +62,13 @@ public class BaseController implements Initializable {
   private AnchorPane associarPane = null;
   private int associar = 0;
   
+  //estrutura dos dados
+  private Fluxograma fluxograma;
+  
+  public BaseController() throws Exception{
+	  this.fluxograma = Fluxograma.getInstancia();
+  }
+  
   @Override
   public void initialize(URL arg0, ResourceBundle arg1) {
 	  
@@ -87,13 +95,24 @@ public class BaseController implements Initializable {
 	  });
 	  
 	  btn_inicio.setOnAction(e -> {
-		  Inicio in = new Inicio();
-		  cria_figura(in.criar_inicio());
+		  
+		  if(!this.fluxograma.existeInicio()) {
+			  Inicio in = new Inicio();
+			  AnchorPane ap = in.criar_inicio();
+			  cria_figura(ap);
+			  this.fluxograma.setInicio(ap);
+		  }
+		  
 	  });
 	  
 	  btn_fim.setOnAction(e -> {
-		  Fim fm = new Fim();
-		  cria_figura(fm.criar_fim());
+		  
+		  if(!this.fluxograma.existeFim()) {
+			  Fim fm = new Fim();
+			  AnchorPane ap = fm.criar_fim();
+			  cria_figura(ap);
+			  this.fluxograma.setFim(ap);
+		  }
 	  });
 	  
 	  btn_decisao.setOnAction(e -> {

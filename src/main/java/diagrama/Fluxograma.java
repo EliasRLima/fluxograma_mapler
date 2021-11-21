@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class Fluxograma {
 	
-	private static Fluxograma instancia;
+	private static Fluxograma instancia; //singleton
 	
 	private AnchorPane inicio;
 	private AnchorPane fim;
@@ -32,6 +32,14 @@ public class Fluxograma {
 		if(fim==null)
 			return false;
 		return true;
+	}
+	
+	public void setInicio(AnchorPane i) {
+		this.inicio = i;
+	}
+	
+	public void setFim(AnchorPane f) {
+		this.fim = f;
 	}
 	
 	public void iniciaAssociacoes() {
