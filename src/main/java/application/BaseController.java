@@ -155,6 +155,8 @@ public class BaseController implements Initializable {
         		  x = figuras.getLayoutX ( ) - mouseEvent.getSceneX ( );
                   y = figuras.getLayoutY ( ) - mouseEvent.getSceneY ( );
                   figuras.setCursor ( Cursor.CROSSHAIR );
+                  
+                  //verificar se nao esta em associacao para refazer a linha
         	  }
            }
       } );
@@ -173,7 +175,6 @@ public class BaseController implements Initializable {
          			 
          			  associarPane = null;
         			  associarTipo = 0;
-         			  
          		  }else {
          			  associarPane = figuras;
          			  associarTipo = tipo;
@@ -207,6 +208,7 @@ public class BaseController implements Initializable {
       root.getChildren ( ).add (ap);
   }
   
+  
   private void criar_linha(Associacao as) {
 	  
 	  Center startCenter = new Center(as.getPane1());
@@ -217,7 +219,12 @@ public class BaseController implements Initializable {
 	          			   endCenter.centerXProperty().intValue(),
 	          			   endCenter.centerYProperty().intValue());
 	  
-	  root.getChildren ( ).add (line);
+	  Line la = as.getLinha();
+	  if (la != null) {
+		  root.getChildren().remove(la);
+	  }
+	  as.setLine(line);
+	  root.getChildren().add(line);
 	  line.toBack();
 	  
 	  line.setOnMouseReleased(e -> {

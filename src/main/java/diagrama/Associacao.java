@@ -3,12 +3,14 @@ package diagrama;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import listas.Tipos;
+import javafx.scene.shape.Line;
 
 public class Associacao {
 
 	private AnchorPane pane1;
 	private AnchorPane pane2;
 	private int tipo_pane1, tipo_pane2;
+	private Line linha;
 
 	public Associacao(AnchorPane pane1, int tp_pane1, AnchorPane pane2, int tp_pane2) {
 		super();
@@ -18,7 +20,15 @@ public class Associacao {
 		this.tipo_pane2 = tp_pane2;
 		
 	}
-
+	
+	public Line getLinha() {
+		return this.linha;
+	}
+	
+	public void setLine(Line l) {
+		this.linha = l;
+	}
+	
 	public AnchorPane getPane1() {
 		return pane1;
 	}
