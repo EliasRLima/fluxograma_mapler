@@ -22,7 +22,6 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
-import listas.TiposAlinhamento;
 import util.Center;
 
 import com.jfoenix.controls.JFXButton;
@@ -213,15 +212,13 @@ public class BaseController implements Initializable {
 	  Center startCenter = new Center(as.getPane1());
 	  Center endCenter   = new Center(as.getPane2());
 	  
-	  TiposAlinhamento alinhamento_ap1 = TiposAlinhamento.getPorValue(as.getTipo_pane1());
-	  TiposAlinhamento alinhamento_ap2 = TiposAlinhamento.getPorValue(as.getTipo_pane2());
-
-	  Line line = new Line(startCenter.centerXProperty().intValue(), //+ alinhamento_ap1.getAlinhamento(),
-	          			   startCenter.centerYProperty().intValue(), //+ alinhamento_ap1.getAlinhamento(),
-	          			   endCenter.centerXProperty().intValue(),// + alinhamento_ap2.getAlinhamento(),
-	          			   endCenter.centerYProperty().intValue());// + alinhamento_ap2.getAlinhamento());
+	  Line line = new Line(startCenter.centerXProperty().intValue(),
+	          			   startCenter.centerYProperty().intValue(),
+	          			   endCenter.centerXProperty().intValue(),
+	          			   endCenter.centerYProperty().intValue());
 	  
 	  root.getChildren ( ).add (line);
+	  line.toBack();
 	  
 	  line.setOnMouseReleased(e -> {
 		  if(mouse_status == 2) {
