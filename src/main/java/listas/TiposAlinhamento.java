@@ -28,4 +28,20 @@ public enum TiposAlinhamento {
 		}
 		return null;
 	}
+	
+    public static TiposAlinhamento getPorValue(int tipo){
+		
+		for(Tipos t : Tipos.values()) {
+			if(t.SAIDA.getValue() == tipo) {
+				for(TiposAlinhamento tp : TiposAlinhamento.values()) {
+					if(tp.name().toLowerCase().equals(t.toString().toLowerCase())) {
+						return tp;
+					}
+				}
+				break;
+			}
+		}
+    	
+		return null;
+	}
 }

@@ -2,22 +2,28 @@ package listas;
 
 public enum Tipos {
 	
-	/*Todos os tipos podem receber varias ligaçoes, porem somente aqueles com valor (1) podem apontar para varios*/
+	/*Todos os tipos podem receber varias ligaçoes, porem somente decisoes podem apontar para varios*/
 	
 	DECISAO(1), //somente decisao aceita apontar mais de uma ligacao //limite de tres ligacoes
-	ENTRADA(0),
-	SAIDA(0),
-	FIM(0),
-	INICIO(0),
-	PROCESSAMENTO(0);
+	ENTRADA(2),
+	SAIDA(3),
+	FIM(4),
+	INICIO(5),
+	PROCESSAMENTO(6);
 	
 	private boolean decisao;
+	private int num;
 	
 	private Tipos(int num) {
-		this.decisao = num > 0 ? true : false;
+		this.decisao = (num == 1 ? true : false);
+		this.num = num;
 	}
 	
 	public boolean isDecisao() {
 		return this.decisao;
+	}
+	
+	public int getValue() {
+		return this.num;
 	}
 }

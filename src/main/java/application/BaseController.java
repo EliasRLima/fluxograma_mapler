@@ -60,13 +60,14 @@ public class BaseController implements Initializable {
   
   //controlar uniao entre dois elementos
   private AnchorPane associarPane = null;
-  private int associar = 0;
+  private int associarTipo = 0;
   
   //estrutura dos dados
   private Fluxograma fluxograma;
   
   public BaseController() throws Exception{
 	  this.fluxograma = Fluxograma.getInstancia();
+	  this.fluxograma.iniciaAssociacoes();
   }
   
   @Override
@@ -81,17 +82,17 @@ public class BaseController implements Initializable {
 	  
 	  btn_processamento.setOnAction(e -> {
 		  Processamento pt = new Processamento();
-		  cria_figura(pt.criar_processamento());
+		  cria_figura(pt.criar_processamento(), 6);
 	  });
 	  
 	  btn_saida.setOnAction(e -> {
 		  Saida sd = new Saida();
-		  cria_figura(sd.criar_saida());
+		  cria_figura(sd.criar_saida(), 3);
 	  });
 	  
 	  btn_entrada.setOnAction(e -> {
 		  Entrada et = new Entrada();
-		  cria_figura(et.criar_entrada());
+		  cria_figura(et.criar_entrada(), 2);
 	  });
 	  
 	  btn_inicio.setOnAction(e -> {
@@ -99,7 +100,7 @@ public class BaseController implements Initializable {
 		  if(!this.fluxograma.existeInicio()) {
 			  Inicio in = new Inicio();
 			  AnchorPane ap = in.criar_inicio();
-			  cria_figura(ap);
+			  cria_figura(ap, 5);
 			  this.fluxograma.setInicio(ap);
 		  }
 		  
@@ -110,14 +111,14 @@ public class BaseController implements Initializable {
 		  if(!this.fluxograma.existeFim()) {
 			  Fim fm = new Fim();
 			  AnchorPane ap = fm.criar_fim();
-			  cria_figura(ap);
+			  cria_figura(ap, 4);
 			  this.fluxograma.setFim(ap);
 		  }
 	  });
 	  
 	  btn_decisao.setOnAction(e -> {
 		  Decisao dc = new Decisao();
-		  cria_figura(dc.criar_decisao());
+		  cria_figura(dc.criar_decisao(), 1);
 	  });
 	  
 	  //style="-fx-border-color: #790b77;"
@@ -147,7 +148,7 @@ public class BaseController implements Initializable {
   };
   
   
-  private void arrastaItens ( final AnchorPane figuras ) {
+  private void arrastaItens ( final AnchorPane figuras, int tipo ) {
       figuras.setOnMousePressed ( new EventHandler < MouseEvent > ( ) {
            @Override
            public void handle ( MouseEvent mouseEvent ) {
@@ -165,7 +166,21 @@ public class BaseController implements Initializable {
         		   figuras.setCursor ( Cursor.HAND );
          	  }else if(mouse_status == 2) {
          		  root.getChildren().remove(figuras);
+         	  }else if(mouse_status == 3) {
+         		  if(associarPane != null) {
+         			  Associacao as = new Associacao(associarPane, associarTipo, figuras, tipo);
+         			  fluxograma.novaAssociacao(as);
+         			  criar_linha(as);
+         			 
+         			  associarPane = null;
+        			  associarTipo = 0;
+         			  
+         		  }else {
+         			  associarPane = figuras;
+         			  associarTipo = tipo;
+         		  }
          	  }
+        	   
                
            }
       } );
@@ -181,10 +196,10 @@ public class BaseController implements Initializable {
       } );
   }
   
-  private void cria_figura (AnchorPane ap) {
+  private void cria_figura (AnchorPane ap, int tipo) {
       ap.setLayoutX(0);
       ap.setLayoutY(0);
-      arrastaItens ( ap );
+      arrastaItens ( ap , tipo );
       
       ap.setOnMouseClicked(e->{
     	  
@@ -198,13 +213,13 @@ public class BaseController implements Initializable {
 	  Center startCenter = new Center(as.getPane1());
 	  Center endCenter   = new Center(as.getPane2());
 	  
-	  TiposAlinhamento alinhamento_ap1 = TiposAlinhamento.getPorNome(as.getTipo_pane1().name());
-	  TiposAlinhamento alinhamento_ap2 = TiposAlinhamento.getPorNome(as.getTipo_pane2().name());
+	  TiposAlinhamento alinhamento_ap1 = TiposAlinhamento.getPorValue(as.getTipo_pane1());
+	  TiposAlinhamento alinhamento_ap2 = TiposAlinhamento.getPorValue(as.getTipo_pane2());
 
-	  Line line = new Line(startCenter.centerXProperty().intValue() + alinhamento_ap1.getAlinhamento(),
-	          			   startCenter.centerYProperty().intValue() + alinhamento_ap1.getAlinhamento(),
-	          			   endCenter.centerXProperty().intValue() + alinhamento_ap2.getAlinhamento(),
-	          			   endCenter.centerYProperty().intValue() + alinhamento_ap2.getAlinhamento());
+	  Line line = new Line(startCenter.centerXProperty().intValue(), //+ alinhamento_ap1.getAlinhamento(),
+	          			   startCenter.centerYProperty().intValue(), //+ alinhamento_ap1.getAlinhamento(),
+	          			   endCenter.centerXProperty().intValue(),// + alinhamento_ap2.getAlinhamento(),
+	          			   endCenter.centerYProperty().intValue());// + alinhamento_ap2.getAlinhamento());
 	  
 	  root.getChildren ( ).add (line);
 	  
