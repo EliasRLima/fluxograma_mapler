@@ -64,4 +64,8 @@ public class Fluxograma {
 		return associacoes;
 	}
 	
+	public void desfazerAssociacao(Associacao as) {
+		this.fluxo.remove(as);
+	}
+	
 }

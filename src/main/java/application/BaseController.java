@@ -198,6 +198,7 @@ public class BaseController implements Initializable {
                 			  root.getChildren().remove(la);
                 		  }
                 		  a.setLine(null);
+                		  fluxograma.desfazerAssociacao(a);
                 	  }
                   }
          		  
