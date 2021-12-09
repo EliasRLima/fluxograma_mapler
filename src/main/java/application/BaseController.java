@@ -182,6 +182,25 @@ public class BaseController implements Initializable {
                    
          	  }else if(mouse_status == 2) {
          		  root.getChildren().remove(figuras);
+         		  
+         		  if(tipo == 4) {
+         			  fluxograma.setFim(null); //resetando o fim
+         		  }else if(tipo == 5) {
+         			  fluxograma.setInicio(null); //resetando o inicio
+         		  }
+         		  
+         		//verificar se nao esta em associacao para desfazer a linha
+                  ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
+                  if(ascc.size() > 0) {
+                	  for(Associacao a : ascc) {
+                		  Line la = a.getLinha();
+                		  if (la != null) {
+                			  root.getChildren().remove(la);
+                		  }
+                		  a.setLine(null);
+                	  }
+                  }
+         		  
          	  }else if(mouse_status == 3) {
          		  if(associarPane != null) {
          			  Associacao as = new Associacao(associarPane, associarTipo, figuras, tipo);
