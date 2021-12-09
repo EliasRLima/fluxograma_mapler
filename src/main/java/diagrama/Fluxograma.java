@@ -54,4 +54,14 @@ public class Fluxograma {
 		return null;
 	}
 	
+	public ArrayList<Associacao> getAssociacoesByPane(AnchorPane ap) {
+		ArrayList<Associacao> associacoes = new ArrayList<Associacao>();
+		for(Associacao as : fluxo) {
+			if(as.getPane1().equals(ap) || as.getPane2().equals(ap)) {
+				associacoes.add(as);
+			}
+		}
+		return associacoes;
+	}
+	
 }

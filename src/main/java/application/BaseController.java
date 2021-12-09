@@ -157,6 +157,12 @@ public class BaseController implements Initializable {
                   figuras.setCursor ( Cursor.CROSSHAIR );
                   
                   //verificar se nao esta em associacao para refazer a linha
+                  ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
+                  if(ascc.size() > 0) {
+                	  for(Associacao a : ascc) {
+                		  criar_linha(a);
+                	  }
+                  }
         	  }
            }
       } );
@@ -165,6 +171,15 @@ public class BaseController implements Initializable {
            public void handle ( MouseEvent mouseEvent ) {
         	   if(mouse_status == 1) {
         		   figuras.setCursor ( Cursor.HAND );
+        		   
+        		 //verificar se nao esta em associacao para refazer a linha
+                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
+                   if(ascc.size() > 0) {
+                 	  for(Associacao a : ascc) {
+                 		  criar_linha(a);
+                 	  }
+                   }
+                   
          	  }else if(mouse_status == 2) {
          		  root.getChildren().remove(figuras);
          	  }else if(mouse_status == 3) {
@@ -190,6 +205,14 @@ public class BaseController implements Initializable {
         	   if(mouse_status == 1) {
         		   figuras.setLayoutX ( mouseEvent.getSceneX ( ) + x );
                    figuras.setLayoutY ( mouseEvent.getSceneY ( ) + y );
+                   
+                 //verificar se nao esta em associacao para refazer a linha
+                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
+                   if(ascc.size() > 0) {
+                 	  for(Associacao a : ascc) {
+                 		  criar_linha(a);
+                 	  }
+                   }
          	  }
                 
            }
