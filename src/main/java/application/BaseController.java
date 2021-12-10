@@ -75,6 +75,7 @@ public class BaseController implements Initializable {
 	  
 	  btns ();
 	  root.getChildren ( ).add ( canvas );
+	  root.setCursor ( Cursor.CLOSED_HAND );
 	  
   }
   
@@ -128,6 +129,7 @@ public class BaseController implements Initializable {
 		  btn_remove.setStyle("");
 		  
 		  mouse_status = 1;//mover
+		  root.setCursor ( Cursor.CLOSED_HAND );
 	  });
 	  
 	  btn_remove.setOnAction(e->{
@@ -136,6 +138,7 @@ public class BaseController implements Initializable {
 		  btn_move.setStyle("");
 		  
 		  mouse_status = 2;//remover
+		  root.setCursor ( Cursor.CROSSHAIR );
 	  });
 	  
 	  btn_associate.setOnAction(e->{
@@ -144,6 +147,7 @@ public class BaseController implements Initializable {
 		  btn_remove.setStyle("");
 		  
 		  mouse_status = 3;//ligacoes
+		  root.setCursor ( Cursor.HAND );
 	  });
   };
   
@@ -155,7 +159,7 @@ public class BaseController implements Initializable {
         	  if(mouse_status == 1) {
         		  x = figuras.getLayoutX ( ) - mouseEvent.getSceneX ( );
                   y = figuras.getLayoutY ( ) - mouseEvent.getSceneY ( );
-                  figuras.setCursor ( Cursor.CROSSHAIR );
+                  
                   
                   //verificar se nao esta em associacao para refazer a linha
                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
@@ -171,7 +175,6 @@ public class BaseController implements Initializable {
            @Override
            public void handle ( MouseEvent mouseEvent ) {
         	   if(mouse_status == 1) {
-        		   figuras.setCursor ( Cursor.HAND );
         		   
         		 //verificar se nao esta em associacao para refazer a linha
                    ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
@@ -205,7 +208,12 @@ public class BaseController implements Initializable {
          		  
          	  }else if(mouse_status == 3) {
          		  if(associarPane != null) {
-         			  Associacao as = new Associacao(associarPane, associarTipo, figuras, tipo);
+         			 Associacao as;
+         			  if(associarTipo == 4) {
+         				 as = new Associacao(figuras, tipo, associarPane, associarTipo);
+         			  }else {
+         				 as = new Associacao(associarPane, associarTipo, figuras, tipo);
+         			  }
          			  fluxograma.novaAssociacao(as);
          			  criar_linha(as);
          			 
