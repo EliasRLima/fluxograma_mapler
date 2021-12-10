@@ -22,6 +22,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeType;
 import util.Center;
 
 import com.jfoenix.controls.JFXButton;
@@ -262,19 +263,42 @@ public class BaseController implements Initializable {
 	          			   endCenter.centerXProperty().intValue(),
 	          			   endCenter.centerYProperty().intValue());
 	  
+	  Line fakeline = new Line(startCenter.centerXProperty().intValue(),
+ 			   				   startCenter.centerYProperty().intValue(),
+ 			   				   endCenter.centerXProperty().intValue(),
+ 			   				   endCenter.centerYProperty().intValue());
+	  
+	  line.setStyle("-fx-stroke-width: 3");
+	  fakeline.setStyle("-fx-stroke-width: 5; -fx-stroke: transparent");
+	  
+	  line.setOnMouseClicked(e -> {
+		  if(mouse_status == 2) {
+			  root.getChildren().remove(line);
+			  as.setLine(null);
+			  fluxograma.desfazerAssociacao(as);
+		  }
+	  });
+	  
+	  fakeline.setOnMouseClicked(e -> {
+		  if(mouse_status == 2) {
+			  root.getChildren().remove(line);
+			  root.getChildren().remove(fakeline);
+			  as.setLine(null);
+			  fluxograma.desfazerAssociacao(as);
+		  }
+	  });
+	  
+	  
 	  Line la = as.getLinha();
 	  if (la != null) {
 		  root.getChildren().remove(la);
 	  }
 	  as.setLine(line);
 	  root.getChildren().add(line);
+	  root.getChildren().add(fakeline);
 	  line.toBack();
 	  
-	  line.setOnMouseReleased(e -> {
-		  if(mouse_status == 2) {
-			  root.getChildren().remove(line);
-		  }
-	  });
+	  
   }
 
 }
