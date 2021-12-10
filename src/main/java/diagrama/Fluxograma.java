@@ -68,4 +68,11 @@ public class Fluxograma {
 		this.fluxo.remove(as);
 	}
 	
+	public boolean bloquearAssociacao(Associacao as) {
+		
+		//serie de verificacoes com os 2 panes, caso passe em todas é liberado adicionar a associacao
+		
+		return false;
+	}
+	
 }
