@@ -262,27 +262,11 @@ public class BaseController implements Initializable {
 	          			   startCenter.centerYProperty().intValue(),
 	          			   endCenter.centerXProperty().intValue(),
 	          			   endCenter.centerYProperty().intValue());
-	  
-	  Line fakeline = new Line(startCenter.centerXProperty().intValue(),
- 			   				   startCenter.centerYProperty().intValue(),
- 			   				   endCenter.centerXProperty().intValue(),
- 			   				   endCenter.centerYProperty().intValue());
-	  
 	  line.setStyle("-fx-stroke-width: 3");
-	  fakeline.setStyle("-fx-stroke-width: 5; -fx-stroke: transparent");
 	  
 	  line.setOnMouseClicked(e -> {
 		  if(mouse_status == 2) {
 			  root.getChildren().remove(line);
-			  as.setLine(null);
-			  fluxograma.desfazerAssociacao(as);
-		  }
-	  });
-	  
-	  fakeline.setOnMouseClicked(e -> {
-		  if(mouse_status == 2) {
-			  root.getChildren().remove(line);
-			  root.getChildren().remove(fakeline);
 			  as.setLine(null);
 			  fluxograma.desfazerAssociacao(as);
 		  }
@@ -295,9 +279,8 @@ public class BaseController implements Initializable {
 	  }
 	  as.setLine(line);
 	  root.getChildren().add(line);
-	  root.getChildren().add(fakeline);
-	  line.toBack();
-	  
+	  as.getPane1().toFront();
+	  as.getPane2().toFront();
 	  
   }
 
