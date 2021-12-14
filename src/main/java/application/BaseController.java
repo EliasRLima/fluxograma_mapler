@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -46,7 +47,7 @@ public class BaseController implements Initializable {
   JFXButton btn_inicio, btn_fim, btn_decisao, btn_processamento, btn_entrada, btn_saida;
   
   @FXML
-  JFXButton btn_move, btn_associate, btn_remove;
+  JFXButton btn_move, btn_associate, btn_remove, btn_decision;
   
   @FXML
   AnchorPane root;
@@ -55,7 +56,7 @@ public class BaseController implements Initializable {
   GraphicsContext ctx = canvas.getGraphicsContext2D ( );
   double x = 0, y = 0;
   
-  //esta variavel representa a acao que o mouse ira fazer ao tocar uma figura: 1 = mover, 2 = remover, 3 = associar
+  //esta variavel representa a acao que o mouse ira fazer ao tocar uma figura: 1 = mover, 2 = remover, 3 = associar, 4 - alterar decisao
   private int mouse_status = 1; //mover
   
   //controlar uniao entre dois elementos
@@ -127,6 +128,7 @@ public class BaseController implements Initializable {
 		  btn_move.setStyle("-fx-border-color: #790b77;");
 		  btn_associate.setStyle("");
 		  btn_remove.setStyle("");
+		  btn_decision.setStyle("");
 		  
 		  mouse_status = 1;//mover
 		  root.setCursor ( Cursor.CLOSED_HAND );
@@ -136,6 +138,7 @@ public class BaseController implements Initializable {
 		  btn_remove.setStyle("-fx-border-color: #790b77;");
 		  btn_associate.setStyle("");
 		  btn_move.setStyle("");
+		  btn_decision.setStyle("");
 		  
 		  mouse_status = 2;//remover
 		  root.setCursor ( Cursor.CROSSHAIR );
@@ -145,9 +148,20 @@ public class BaseController implements Initializable {
 		  btn_associate.setStyle("-fx-border-color: #790b77;");
 		  btn_move.setStyle("");
 		  btn_remove.setStyle("");
+		  btn_decision.setStyle("");
 		  
 		  mouse_status = 3;//ligacoes
 		  root.setCursor ( Cursor.HAND );
+	  });
+	  
+	  btn_decision.setOnAction(e->{
+		  btn_decision.setStyle("-fx-border-color: #790b77;");
+		  btn_move.setStyle("");
+		  btn_remove.setStyle("");
+		  btn_associate.setStyle("");
+		  
+		  mouse_status = 4;//decisoes
+		  root.setCursor ( Cursor.DEFAULT );
 	  });
   };
   
@@ -270,16 +284,30 @@ public class BaseController implements Initializable {
 	          			   startCenter.centerYProperty().intValue(),
 	          			   endCenter.centerXProperty().intValue(),
 	          			   endCenter.centerYProperty().intValue());
-	  line.setStyle("-fx-stroke-width: 3");
+	  
+	  Label lab = new Label("Sim");
+	  
+	  if(as.getTipo_pane1() == 1) {
+		  line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");
+		  line.setCursor(Cursor.CLOSED_HAND);
+	  }
 	  
 	  line.setOnMouseClicked(e -> {
 		  if(mouse_status == 2) {
 			  root.getChildren().remove(line);
 			  as.setLine(null);
 			  fluxograma.desfazerAssociacao(as);
+		  }else if(mouse_status == 4 && as.getTipo_pane1() == 1) {
+			  System.out.println(line.getStyle());
+			  if(line.getStyle().equals("-fx-stroke-width: 3;-fx-stroke: lime")) {
+				  line.setStyle("-fx-stroke-width: 3;-fx-stroke: #ff5050");
+				  lab.setText("Nao");
+			  }else {
+				  line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");
+				  lab.setText("sim");
+			  }
 		  }
 	  });
-	  
 	  
 	  Line la = as.getLinha();
 	  if (la != null) {

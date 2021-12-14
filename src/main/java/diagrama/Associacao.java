@@ -1,5 +1,6 @@
 package diagrama;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 import listas.Tipos;
@@ -11,6 +12,7 @@ public class Associacao {
 	private AnchorPane pane2;
 	private int tipo_pane1, tipo_pane2;
 	private Line linha;
+	private Label label;
 
 	public Associacao(AnchorPane pane1, int tp_pane1, AnchorPane pane2, int tp_pane2) {
 		super();
@@ -64,7 +66,13 @@ public class Associacao {
 	public boolean partindoDeDecisao() {
 		return this.tipo_pane1==1?true:false;
 	}
-	
-	
+
+	public Label getLabel() {
+		return label;
+	}
+
+	public void setLabel(Label label) {
+		this.label = label;
+	}
 	
 }
