@@ -211,11 +211,18 @@ public class BaseController implements Initializable {
                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
                   if(ascc.size() > 0) {
                 	  for(Associacao a : ascc) {
+                		  
                 		  Line la = a.getLinha();
                 		  if (la != null) {
                 			  root.getChildren().remove(la);
                 		  }
                 		  a.setLine(null);
+                		  
+                		  Label lb = a.getLabel();
+                		  if(lb != null) {
+                			  root.getChildren().remove(lb);
+                		  }
+                		  a.setLabel(null);
                 		  fluxograma.desfazerAssociacao(a);
                 	  }
                   }
@@ -266,11 +273,6 @@ public class BaseController implements Initializable {
       ap.setLayoutX(0);
       ap.setLayoutY(0);
       arrastaItens ( ap , tipo );
-      
-      ap.setOnMouseClicked(e->{
-    	  
-      });
-      
       root.getChildren ( ).add (ap);
   }
   
@@ -285,11 +287,36 @@ public class BaseController implements Initializable {
 	          			   endCenter.centerXProperty().intValue(),
 	          			   endCenter.centerYProperty().intValue());
 	  
-	  Label lab = new Label("Sim");
+
+	  Label lb = as.getLabel();
+	  if (lb != null) {
+		  root.getChildren().remove(lb);
+	  }else {
+		  as.setLabel(new Label("Sim"));
+		  as.getLabel().setTextFill(Color.LIGHTGREEN);
+	  }
+	  Label lab = as.getLabel();
+	  
+	  lab.setOnMouseClicked(e -> {
+		  if(lab.getText().equals("Sim")) {
+			  lab.setText("Nao");
+			  lab.setTextFill(Color.RED);
+		  }else {
+			  lab.setText("Sim");
+			  lab.setTextFill(Color.LIGHTGREEN);
+		  }
+	  });
+	  
+	  int x = (endCenter.centerXProperty().intValue() + startCenter.centerXProperty().intValue())/2;
+	  int y = (endCenter.centerYProperty().intValue() + startCenter.centerYProperty().intValue())/2;
+	  lab.setLayoutX(x);
+	  lab.setLayoutY(y);
 	  
 	  if(as.getTipo_pane1() == 1) {
-		  line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");
+		  //line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");
 		  line.setCursor(Cursor.CLOSED_HAND);
+		  as.setLabel(lab);
+		  root.getChildren().add(lab);
 	  }
 	  
 	  line.setOnMouseClicked(e -> {
@@ -299,12 +326,12 @@ public class BaseController implements Initializable {
 			  fluxograma.desfazerAssociacao(as);
 		  }else if(mouse_status == 4 && as.getTipo_pane1() == 1) {
 			  System.out.println(line.getStyle());
-			  if(line.getStyle().equals("-fx-stroke-width: 3;-fx-stroke: lime")) {
-				  line.setStyle("-fx-stroke-width: 3;-fx-stroke: #ff5050");
+			  if(lab.getText().equals("Sim")) {
 				  lab.setText("Nao");
+				  lab.setTextFill(Color.RED);
 			  }else {
-				  line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");
-				  lab.setText("sim");
+				  lab.setText("Sim");
+				  lab.setTextFill(Color.LIGHTGREEN);
 			  }
 		  }
 	  });
