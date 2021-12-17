@@ -44,6 +44,14 @@ public class Fluxograma {
 		this.fim = f;
 	}
 	
+	public AnchorPane getInicio() {
+		return inicio;
+	}
+
+	public AnchorPane getFim() {
+		return fim;
+	}
+
 	public void iniciaAssociacoes() {
 		fluxo = new ArrayList<Associacao>();
 	}
@@ -52,8 +60,25 @@ public class Fluxograma {
 		fluxo.add(as);
 	}
 	
-	public Associacao buscaAssociacao(AnchorPane ap) {
-		return null;
+	public boolean ligacaoCompleta() { //errado, tem de verificar se partindo de inicio chega em fim. //se tiver decisao tem de chegar em fim por ambos os fluxos
+		int inicio = 0;
+		int fim = 0;
+		
+		for(Associacao a : fluxo) {
+			if(a.getTipo_pane1() == Tipos.INICIO.getValue()) {
+				inicio = 1;
+			}
+			if(a.getTipo_pane2() == Tipos.FIM.getValue()) {
+				fim = 1;
+			}
+			
+			if(inicio == 1 && fim == 1) {
+				return true;
+			}
+		}
+		
+		return false;
+		
 	}
 	
 	public ArrayList<Associacao> getAssociacoesByPane(AnchorPane ap) {
