@@ -27,6 +27,7 @@ import javafx.scene.shape.StrokeType;
 import util.Center;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 
 import diagrama.Associacao;
 import diagrama.Fluxograma;
@@ -51,6 +52,13 @@ public class BaseController implements Initializable {
   
   @FXML
   AnchorPane root;
+  
+  @FXML
+  JFXTextArea txt_console;
+  
+  @FXML
+  JFXButton btn_clear_console;
+  
   
   Canvas canvas = new Canvas ( 600, 300 );
   GraphicsContext ctx = canvas.getGraphicsContext2D ( );
@@ -121,6 +129,11 @@ public class BaseController implements Initializable {
 	  btn_decisao.setOnAction(e -> {
 		  Decisao dc = new Decisao();
 		  cria_figura(dc.criar_decisao(), 1);
+	  });
+	  
+	  btn_clear_console.setOnAction(e -> {
+		  txt_console.clear();
+		  txt_console.setText("<< Console >>");
 	  });
 	  
 	  //style="-fx-border-color: #790b77;"
@@ -230,7 +243,7 @@ public class BaseController implements Initializable {
          			  
          			  boolean bloquear = fluxograma.bloquearAssociacao(as);
          			  if(bloquear) {
-         				  System.out.println("associacao bloqueada.");
+         				 sendMsgConsole("associacao bloqueada.");
          				  associarPane = null;
          				  associarTipo = 0;
          			  }else {
@@ -344,6 +357,10 @@ public class BaseController implements Initializable {
 	  as.getPane1().toFront();
 	  as.getPane2().toFront();
 	  
+  }
+  
+  private void sendMsgConsole(String msg) {
+	  txt_console.appendText("\n" + msg);
   }
 
 }
