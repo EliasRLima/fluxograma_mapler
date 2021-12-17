@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.JFXTextArea?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BaseController">
 	<children>
@@ -106,7 +107,15 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      	<children>
+      		<AnchorPane prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0">
+   				<children>
+      				<JFXTextArea editable="false" text="&lt;&lt; Console &gt;&gt;" style="-fx-background-color: white;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="2.0" />
+   				</children>
+			</AnchorPane>
+		</children>
+	  </AnchorPane>
    </center>
 </BorderPane>
 	</children>
