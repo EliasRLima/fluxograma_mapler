@@ -293,8 +293,12 @@ public class BaseController implements Initializable {
 	  if (lb != null) {
 		  root.getChildren().remove(lb);
 	  }else {
-		  as.setLabel(new Label("Sim"));
-		  as.getLabel().setTextFill(Color.GREEN);
+		  as.setLabel(new Label(fluxograma.nextTextoDecisao(as)));
+		  if(as.getLabel().getText().equals("Sim")) {
+			  as.getLabel().setTextFill(Color.GREEN);
+		  }else {
+			  as.getLabel().setTextFill(Color.RED);
+		  }
 	  }
 	  Label lab = as.getLabel();
 	  
@@ -306,6 +310,7 @@ public class BaseController implements Initializable {
 			  lab.setText("Sim");
 			  lab.setTextFill(Color.GREEN);
 		  }
+		  fluxograma.inverterTextoDecisao(as);
 	  });
 	  
 	  int x = (endCenter.centerXProperty().intValue() + startCenter.centerXProperty().intValue())/2;

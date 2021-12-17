@@ -3,6 +3,7 @@ package diagrama;
 import java.util.ArrayList;
 
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import listas.Tipos;
 
 public class Fluxograma {
@@ -94,6 +95,35 @@ public class Fluxograma {
 		
 		
 		return false;
+	}
+	
+	public String nextTextoDecisao(Associacao as) { //busca se a decisao já tem associacao e retorna o texto inverso para nova associacao
+		
+		for(Associacao a : fluxo) {
+			if(a.getPane1().equals(as.getPane1()) && !a.getPane2().equals(as.getPane2())) {
+				if(a.getLabel().getText().equals("Sim")) {
+					return "Nao";
+				}else {
+					return "Sim";
+				}
+			}
+		}
+		
+		return "Sim";
+	}
+	
+	public void inverterTextoDecisao(Associacao as) { //busca associacao a mesma decisao e inverte o texto
+		for(Associacao a : fluxo) {
+			if(a.getPane1().equals(as.getPane1()) && !a.getPane2().equals(as.getPane2())) {
+				if(as.getLabel().getText().equals("Sim")) {
+					a.getLabel().setText("Nao");
+					a.getLabel().setTextFill(Color.RED);
+				}else {
+					a.getLabel().setText("Sim");
+					a.getLabel().setTextFill(Color.GREEN);
+				}
+			}
+		}
 	}
 	
 }
