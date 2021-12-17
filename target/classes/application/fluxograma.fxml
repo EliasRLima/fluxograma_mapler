@@ -40,11 +40,6 @@
                                     <FontAwesomeIcon glyphName="PENCIL" />
                                  </graphic>
                               </JFXButton>
-                              <JFXButton fx:id="btn_decision" contentDisplay="CENTER" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="LEGAL" />
-                                 </graphic>
-                              </JFXButton>
                               <JFXButton fx:id="btn_associate" contentDisplay="CENTER" text=" ">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="ARROW_RIGHT" />

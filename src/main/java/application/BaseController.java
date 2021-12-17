@@ -47,7 +47,7 @@ public class BaseController implements Initializable {
   JFXButton btn_inicio, btn_fim, btn_decisao, btn_processamento, btn_entrada, btn_saida;
   
   @FXML
-  JFXButton btn_move, btn_associate, btn_remove, btn_decision;
+  JFXButton btn_move, btn_associate, btn_remove;
   
   @FXML
   AnchorPane root;
@@ -128,41 +128,33 @@ public class BaseController implements Initializable {
 		  btn_move.setStyle("-fx-border-color: #790b77;");
 		  btn_associate.setStyle("");
 		  btn_remove.setStyle("");
-		  btn_decision.setStyle("");
 		  
 		  mouse_status = 1;//mover
 		  root.setCursor ( Cursor.CLOSED_HAND );
+		  associarPane = null;
+		  associarTipo = 0;
 	  });
 	  
 	  btn_remove.setOnAction(e->{
 		  btn_remove.setStyle("-fx-border-color: #790b77;");
 		  btn_associate.setStyle("");
 		  btn_move.setStyle("");
-		  btn_decision.setStyle("");
 		  
 		  mouse_status = 2;//remover
 		  root.setCursor ( Cursor.CROSSHAIR );
+		  associarPane = null;
+		  associarTipo = 0;
 	  });
 	  
 	  btn_associate.setOnAction(e->{
 		  btn_associate.setStyle("-fx-border-color: #790b77;");
 		  btn_move.setStyle("");
 		  btn_remove.setStyle("");
-		  btn_decision.setStyle("");
 		  
 		  mouse_status = 3;//ligacoes
 		  root.setCursor ( Cursor.HAND );
 	  });
 	  
-	  btn_decision.setOnAction(e->{
-		  btn_decision.setStyle("-fx-border-color: #790b77;");
-		  btn_move.setStyle("");
-		  btn_remove.setStyle("");
-		  btn_associate.setStyle("");
-		  
-		  mouse_status = 4;//decisoes
-		  root.setCursor ( Cursor.DEFAULT );
-	  });
   };
   
   
@@ -235,11 +227,20 @@ public class BaseController implements Initializable {
          			  }else {
          				 as = new Associacao(associarPane, associarTipo, figuras, tipo);
          			  }
-         			  fluxograma.novaAssociacao(as);
-         			  criar_linha(as);
-         			 
-         			  associarPane = null;
-        			  associarTipo = 0;
+         			  
+         			  boolean bloquear = fluxograma.bloquearAssociacao(as);
+         			  if(bloquear) {
+         				  System.out.println("associacao bloqueada.");
+         				  associarPane = null;
+         				  associarTipo = 0;
+         			  }else {
+         				  fluxograma.novaAssociacao(as);
+            			  criar_linha(as);
+            			 
+            			  associarPane = null;
+            			  associarTipo = 0;
+         			  }
+         			  
          		  }else {
          			  associarPane = figuras;
          			  associarTipo = tipo;
@@ -293,7 +294,7 @@ public class BaseController implements Initializable {
 		  root.getChildren().remove(lb);
 	  }else {
 		  as.setLabel(new Label("Sim"));
-		  as.getLabel().setTextFill(Color.LIGHTGREEN);
+		  as.getLabel().setTextFill(Color.GREEN);
 	  }
 	  Label lab = as.getLabel();
 	  
@@ -303,20 +304,22 @@ public class BaseController implements Initializable {
 			  lab.setTextFill(Color.RED);
 		  }else {
 			  lab.setText("Sim");
-			  lab.setTextFill(Color.LIGHTGREEN);
+			  lab.setTextFill(Color.GREEN);
 		  }
 	  });
 	  
 	  int x = (endCenter.centerXProperty().intValue() + startCenter.centerXProperty().intValue())/2;
 	  int y = (endCenter.centerYProperty().intValue() + startCenter.centerYProperty().intValue())/2;
-	  lab.setLayoutX(x);
-	  lab.setLayoutY(y);
+	  lab.setLayoutX(x+3);
+	  lab.setLayoutY(y+3);
 	  
 	  if(as.getTipo_pane1() == 1) {
 		  //line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");
 		  line.setCursor(Cursor.CLOSED_HAND);
+		  lab.setCursor(Cursor.CLOSED_HAND);
 		  as.setLabel(lab);
 		  root.getChildren().add(lab);
+		  lab.toFront();
 	  }
 	  
 	  line.setOnMouseClicked(e -> {
@@ -324,15 +327,6 @@ public class BaseController implements Initializable {
 			  root.getChildren().remove(line);
 			  as.setLine(null);
 			  fluxograma.desfazerAssociacao(as);
-		  }else if(mouse_status == 4 && as.getTipo_pane1() == 1) {
-			  System.out.println(line.getStyle());
-			  if(lab.getText().equals("Sim")) {
-				  lab.setText("Nao");
-				  lab.setTextFill(Color.RED);
-			  }else {
-				  lab.setText("Sim");
-				  lab.setTextFill(Color.LIGHTGREEN);
-			  }
 		  }
 	  });
 	  

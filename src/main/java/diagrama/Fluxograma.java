@@ -3,6 +3,7 @@ package diagrama;
 import java.util.ArrayList;
 
 import javafx.scene.layout.AnchorPane;
+import listas.Tipos;
 
 public class Fluxograma {
 	
@@ -71,6 +72,26 @@ public class Fluxograma {
 	public boolean bloquearAssociacao(Associacao as) {
 		
 		//serie de verificacoes com os 2 panes, caso passe em todas é liberado adicionar a associacao
+		
+		//nao pode ser pane1 para mais de uma associacao //exceto decisao, mas este se limita a duas ligacoes
+		if(as.getTipo_pane1() == Tipos.DECISAO.getValue()) {
+			int cont = 0;
+			for(Associacao a : fluxo) {
+				if(a.getPane1().equals(as.getPane1())) {
+					cont++;
+					if(cont >= 2) {
+						return true;
+					}
+				}
+			}
+		}else {
+			for(Associacao a : fluxo) {
+				if(a.getPane1().equals(as.getPane1())) {
+					return true;
+				}
+			}
+		}
+		
 		
 		return false;
 	}
