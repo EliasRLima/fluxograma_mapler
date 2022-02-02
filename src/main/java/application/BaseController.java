@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
+import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
@@ -29,8 +31,11 @@ import util.Center;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import diagrama.Associacao;
+import diagrama.FMX;
 import diagrama.Fluxograma;
+import figuras.Console;
 import figuras.Decisao;
 import figuras.Entrada;
 import figuras.Fim;
@@ -48,16 +53,12 @@ public class BaseController implements Initializable {
   JFXButton btn_inicio, btn_fim, btn_decisao, btn_processamento, btn_entrada, btn_saida;
   
   @FXML
-  JFXButton btn_move, btn_associate, btn_remove;
+  JFXButton btn_move, btn_associate, btn_remove, btn_open, btn_save;
   
   @FXML
   AnchorPane root;
   
-  @FXML
-  JFXTextArea txt_console;
-  
-  @FXML
-  JFXButton btn_clear_console;
+
   
   
   Canvas canvas = new Canvas ( 600, 300 );
@@ -74,6 +75,9 @@ public class BaseController implements Initializable {
   //estrutura dos dados
   private Fluxograma fluxograma;
   
+  //console
+  private JFXTextArea texto;
+  
   public BaseController() throws Exception{
 	  this.fluxograma = Fluxograma.getInstancia();
 	  this.fluxograma.iniciaAssociacoes();
@@ -85,10 +89,72 @@ public class BaseController implements Initializable {
 	  btns ();
 	  root.getChildren ( ).add ( canvas );
 	  root.setCursor ( Cursor.CLOSED_HAND );
+	  addConsole();
+	  
+  }
+  
+  private FMX carregarFluxograma() {
+	  FMX processador_fluxograma =  new FMX();
+	  processador_fluxograma.fluxograma2String(root,fluxograma);
+	  return processador_fluxograma;
+  }
+  
+  private void addConsole() {
+	  AnchorPane area_console = new AnchorPane();
+	  area_console.setPrefSize(200, 100);
+	  
+	  root.getChildren().add(area_console);
+	  root.setBottomAnchor(area_console, 0.0);
+	  root.setRightAnchor(area_console, 0.0);
+	  
+	  texto = new JFXTextArea();
+	  texto.setEditable(false);
+	  texto.setText("<< Console >>");
+	  texto.setStyle("-fx-background-color: white;");
+	  
+	  JFXButton btn_clear_console = new JFXButton(" ");
+	  btn_clear_console.setStyle("-fx-background-color: #AAA;");
+	  FontAwesomeIcon icon = new FontAwesomeIcon();
+	  icon.setGlyphName("FILE_EXCEL_ALT");
+	  btn_clear_console.setGraphic(icon);
+	  btn_clear_console.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+	  
+	  area_console.getChildren().add(texto);
+	  area_console.setBottomAnchor(texto, 2.0);
+	  area_console.setLeftAnchor(texto, 10.0);
+	  area_console.setRightAnchor(texto, 10.0);
+	  area_console.setTopAnchor(texto, 2.0);
+	  
+	  area_console.getChildren().add(btn_clear_console);
+	  area_console.setRightAnchor(btn_clear_console, 11.0);
+	  area_console.setTopAnchor(btn_clear_console, 3.0);
+	  
+	  btn_clear_console.setOnAction(e -> {
+		  texto.clear();
+		  texto.setText("<< Console >>");
+	  });
+	  
 	  
   }
   
   private void btns () {
+	  
+	  btn_open.setOnAction(e -> {
+		  boolean boo = ArquivoService.getInstance().abrir();
+		  if (boo) {
+			  String aberto = ArquivoService.getInstance().getConteudo();
+			  root.getChildren().clear();
+			  root.getChildren().setAll(new FMX().string2Pane(aberto).getChildren());
+			  addConsole();
+			  fluxograma.iniciaAssociacoes();
+			  fluxograma.setFim(null);
+			  fluxograma.setInicio(null);
+		  }
+	  });
+	  
+	  btn_save.setOnAction(e -> {
+		  ArquivoService.getInstance().salvar(carregarFluxograma());
+	  });
 	  
 	  btn_processamento.setOnAction(e -> {
 		  Processamento pt = new Processamento();
@@ -129,11 +195,6 @@ public class BaseController implements Initializable {
 	  btn_decisao.setOnAction(e -> {
 		  Decisao dc = new Decisao();
 		  cria_figura(dc.criar_decisao(), 1);
-	  });
-	  
-	  btn_clear_console.setOnAction(e -> {
-		  txt_console.clear();
-		  txt_console.setText("<< Console >>");
 	  });
 	  
 	  //style="-fx-border-color: #790b77;"
@@ -360,7 +421,7 @@ public class BaseController implements Initializable {
   }
   
   private void sendMsgConsole(String msg) {
-	  txt_console.appendText("\n" + msg);
+	  texto.appendText("\n" + msg);
   }
 
 }

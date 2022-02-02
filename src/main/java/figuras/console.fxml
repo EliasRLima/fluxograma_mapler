@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXButton?>
+
+<AnchorPane prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   				<children>
+      				<JFXTextArea fx:id="txt_console" editable="false" text="&lt;&lt; Console &gt;&gt;" style="-fx-background-color: white;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="2.0" />
+   					<JFXButton fx:id="btn_clear_console" contentDisplay="GRAPHIC_ONLY" layoutX="180.0" layoutY="200.0" style="-fx-background-color: #AAA;" text=" " AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="3.0">
+         				<graphic>
+            				<FontAwesomeIcon fill="#fc0000" glyphName="FILE_EXCEL_ALT" size="0.95em" />
+         				</graphic>
+      				</JFXButton>
+   				</children>
+</AnchorPane>

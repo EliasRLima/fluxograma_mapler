@@ -12,6 +12,18 @@ public class Processamento {
 		  }catch(Exception e) {
 			  processamento = new AnchorPane();
 		  }
+		  processamento.setId("#processamento"+SequenceIdFigura.getNextID());
+		  return processamento;
+	  }
+	
+	public AnchorPane criar_processamento(String id) {
+		  AnchorPane processamento;
+		  try {
+			  processamento = FXMLLoader.load(getClass().getResource("processamento.fxml"));
+		  }catch(Exception e) {
+			  processamento = new AnchorPane();
+		  }
+		  processamento.setId(id);
 		  return processamento;
 	  }
 	

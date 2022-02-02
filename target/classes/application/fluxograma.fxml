@@ -36,6 +36,20 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
                            <children>
+                              <JFXButton fx:id="btn_open" contentDisplay="CENTER" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon glyphName="FOLDER_OPEN" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btn_save" contentDisplay="CENTER" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon glyphName="SAVE" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+                           <children>
                               <JFXButton fx:id="btn_move" contentDisplay="CENTER" style="-fx-border-color: #790b77;" text=" ">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="PENCIL" />
@@ -109,16 +123,6 @@
    <center>
       <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
       	<children>
-      		<AnchorPane prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="0.0">
-   				<children>
-      				<JFXTextArea fx:id="txt_console" editable="false" text="&lt;&lt; Console &gt;&gt;" style="-fx-background-color: white;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="2.0" />
-   					<JFXButton fx:id="btn_clear_console" contentDisplay="GRAPHIC_ONLY" layoutX="180.0" layoutY="200.0" style="-fx-background-color: #AAA;" text=" " AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="3.0">
-         				<graphic>
-            				<FontAwesomeIcon fill="#fc0000" glyphName="FILE_EXCEL_ALT" size="0.95em" />
-         				</graphic>
-      				</JFXButton>
-   				</children>
-			</AnchorPane>
 		</children>
 	  </AnchorPane>
    </center>

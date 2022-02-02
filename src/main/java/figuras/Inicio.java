@@ -13,6 +13,19 @@ public class Inicio {
 			  inicio = new AnchorPane();
 			  //System.out.println(e.getMessage());
 		  }
+		  inicio.setId("#inicio"+SequenceIdFigura.getNextID());
+		  return inicio;
+	  }
+	
+	public AnchorPane criar_inicio(String id) {
+		  AnchorPane inicio;
+		  try {
+			  inicio = FXMLLoader.load(getClass().getResource("inicio.fxml"));
+		  }catch(Exception e) {
+			  inicio = new AnchorPane();
+			  //System.out.println(e.getMessage());
+		  }
+		  inicio.setId(id);
 		  return inicio;
 	  }
 	
