@@ -1,4 +1,4 @@
-package application;
+package Services;
 
 import java.util.ArrayList;
 
@@ -18,8 +18,12 @@ public class FigurasService {
 	
 	private double x = 0, y = 0;
 	
+	//controlar uniao entre dois elementos
 	private AnchorPane associarPane = null;
 	private int associarTipo = 0;
+	
+	//esta variavel representa a acao que o mouse ira fazer ao tocar uma figura: 1 = mover, 2 = remover, 3 = associar, 4 - alterar decisao
+	private int mouse_status = 1;
 	
 	public FigurasService() {
 		// TODO Auto-generated constructor stub
@@ -40,8 +44,16 @@ public class FigurasService {
 	public void setAssociarTipo(int associarTipo) {
 		this.associarTipo = associarTipo;
 	}
+	
+	public int getMouse_status() {
+		return mouse_status;
+	}
 
-	public void arrastaItens (AnchorPane root, final AnchorPane figuras, int tipo, int mouse_status, Fluxograma fluxograma) {
+	public void setMouse_status(int mouse_status) {
+		this.mouse_status = mouse_status;
+	}
+
+	public void arrastaItens (AnchorPane root, final AnchorPane figuras, int tipo, Fluxograma fluxograma) {
 	      figuras.setOnMousePressed ( new EventHandler < MouseEvent > ( ) {
 	           @Override
 	           public void handle ( MouseEvent mouseEvent ) {
@@ -54,7 +66,7 @@ public class FigurasService {
 	                  ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
 	                  if(ascc.size() > 0) {
 	                	  for(Associacao a : ascc) {
-	                		  criar_linha(root, fluxograma, a, mouse_status);
+	                		  criar_linha(root, fluxograma, a);
 	                	  }
 	                  }
 	        	  }
@@ -69,7 +81,7 @@ public class FigurasService {
 	                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
 	                   if(ascc.size() > 0) {
 	                 	  for(Associacao a : ascc) {
-	                 		 criar_linha(root, fluxograma, a, mouse_status);
+	                 		 criar_linha(root, fluxograma, a);
 	                 	  }
 	                   }
 	                   
@@ -118,7 +130,7 @@ public class FigurasService {
 	         				  associarTipo = 0;
 	         			  }else {
 	         				  fluxograma.novaAssociacao(as);
-	         				 criar_linha(root, fluxograma, as, mouse_status);
+	         				 criar_linha(root, fluxograma, as);
 	            			 
 	            			  associarPane = null;
 	            			  associarTipo = 0;
@@ -144,7 +156,7 @@ public class FigurasService {
 	                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
 	                   if(ascc.size() > 0) {
 	                 	  for(Associacao a : ascc) {
-	                 		  criar_linha(root, fluxograma, a, mouse_status);
+	                 		  criar_linha(root, fluxograma, a);
 	                 	  }
 	                   }
 	         	  }
@@ -153,7 +165,7 @@ public class FigurasService {
 	      } );
 	  }
 	
-	public void criar_linha(AnchorPane root, Fluxograma fluxograma, Associacao as, int mouse_status) {
+	public void criar_linha(AnchorPane root, Fluxograma fluxograma, Associacao as) {
 		  
 		  Center startCenter = new Center(as.getPane1());
 		  Center endCenter   = new Center(as.getPane2());

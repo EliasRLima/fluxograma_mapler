@@ -31,6 +31,8 @@ import util.Center;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
+import Services.ArquivoService;
+import Services.FigurasService;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import diagrama.Associacao;
 import diagrama.FMX;
@@ -58,19 +60,11 @@ public class BaseController implements Initializable {
   @FXML
   AnchorPane root;
   
-
-  
   
   Canvas canvas = new Canvas ( 600, 300 );
   GraphicsContext ctx = canvas.getGraphicsContext2D ( );
   double x = 0, y = 0;
   
-  //esta variavel representa a acao que o mouse ira fazer ao tocar uma figura: 1 = mover, 2 = remover, 3 = associar, 4 - alterar decisao
-  private int mouse_status = 1; //mover
-  
-  //controlar uniao entre dois elementos
-  //private AnchorPane associarPane = null;
-  //private int associarTipo = 0;
   private FigurasService figurasService = new FigurasService();
   
   //estrutura dos dados
@@ -143,7 +137,7 @@ public class BaseController implements Initializable {
 		  if (boo) {
 			  String aberto = ArquivoService.getInstance().getConteudo();
 			  root.getChildren().clear();
-			  root.getChildren().setAll(new FMX().string2Pane(aberto).getChildren());
+			  root.getChildren().setAll(new FMX().string2Pane(aberto, fluxograma).getChildren());
 			  addConsole();
 			  fluxograma.iniciaAssociacoes();
 			  fluxograma.setFim(null);
@@ -202,7 +196,8 @@ public class BaseController implements Initializable {
 		  btn_associate.setStyle("");
 		  btn_remove.setStyle("");
 		  
-		  mouse_status = 1;//mover
+		  //mouse_status = 1;//mover
+		  figurasService.setMouse_status(1);
 		  root.setCursor ( Cursor.CLOSED_HAND );
 		  
 		  figurasService.setAssociarPane(null);
@@ -214,7 +209,8 @@ public class BaseController implements Initializable {
 		  btn_associate.setStyle("");
 		  btn_move.setStyle("");
 		  
-		  mouse_status = 2;//remover
+		  //mouse_status = 2;//remover
+		  figurasService.setMouse_status(2);
 		  root.setCursor ( Cursor.CROSSHAIR );
 		  figurasService.setAssociarPane(null);
 		  figurasService.setAssociarTipo(0);
@@ -225,7 +221,8 @@ public class BaseController implements Initializable {
 		  btn_move.setStyle("");
 		  btn_remove.setStyle("");
 		  
-		  mouse_status = 3;//ligacoes
+		  //mouse_status = 3;//ligacoes
+		  figurasService.setMouse_status(3);
 		  root.setCursor ( Cursor.HAND );
 	  });
 	  
@@ -235,7 +232,7 @@ public class BaseController implements Initializable {
       ap.setLayoutX(0);
       ap.setLayoutY(0);
       //arrastaItens ( ap , tipo );
-      figurasService.arrastaItens(root, ap, tipo, mouse_status, fluxograma);
+      figurasService.arrastaItens(root, ap, tipo, fluxograma);
       root.getChildren ( ).add (ap);
   }
   

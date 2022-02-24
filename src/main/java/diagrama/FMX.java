@@ -1,6 +1,7 @@
 package diagrama;
 
 
+import Services.FigurasService;
 import figuras.Decisao;
 import figuras.Entrada;
 import figuras.Fim;
@@ -9,6 +10,7 @@ import figuras.Processamento;
 import figuras.Saida;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import listas.Tipos;
 
 public class FMX {
    //FLUXOGRAMA MAPLER X
@@ -88,12 +90,13 @@ public class FMX {
 				return null;
 	}
 	
-	public AnchorPane string2Pane(String conteudo) {
+	public AnchorPane string2Pane(String conteudo, Fluxograma fluxograma) {
 		//lembrar de verificar inicio e fim
 		int i = 1;
 		int lerfiguras = 0;
 		int lerassociacao = 0;
 		AnchorPane root = new AnchorPane();
+		FigurasService fs = new FigurasService();
 		
 		for(String linha : conteudo.split("\n")) {
 			if(linha.equals("//elementos")) {
@@ -118,31 +121,37 @@ public class FMX {
 					AnchorPane ini = new Inicio().criar_inicio(id);
 					ini.setLayoutX(Double.parseDouble(x));
 					ini.setLayoutY(Double.parseDouble(y));
+					fs.arrastaItens(root, ini, Tipos.INICIO.getValue(), fluxograma);
 					root.getChildren().add(ini);
 				}else if(id.contains("fim")) {
 					AnchorPane fim = new Fim().criar_fim(id);
 					fim.setLayoutX(Double.parseDouble(x));
 					fim.setLayoutY(Double.parseDouble(y));
+					fs.arrastaItens(root, fim, Tipos.FIM.getValue(), fluxograma);
 					root.getChildren().add(fim);
 				}else if(id.contains("entrada")) {
 					AnchorPane entrada = new Entrada().criar_entrada(id);
 					entrada.setLayoutX(Double.parseDouble(x));
 					entrada.setLayoutY(Double.parseDouble(y));
+					fs.arrastaItens(root, entrada, Tipos.ENTRADA.getValue(), fluxograma);
 					root.getChildren().add(entrada);
 				}else if(id.contains("saida")) {
 					AnchorPane saida = new Saida().criar_saida(id);
 					saida.setLayoutX(Double.parseDouble(x));
 					saida.setLayoutY(Double.parseDouble(y));
+					fs.arrastaItens(root, saida, Tipos.SAIDA.getValue(), fluxograma);
 					root.getChildren().add(saida);
 				}else if(id.contains("decisao")) {
 					AnchorPane decisao = new Decisao().criar_decisao(id);
 					decisao.setLayoutX(Double.parseDouble(x));
 					decisao.setLayoutY(Double.parseDouble(y));
+					fs.arrastaItens(root, decisao, Tipos.DECISAO.getValue(), fluxograma);
 					root.getChildren().add(decisao);
 				}else if(id.contains("processamento")) {
 					AnchorPane processamento = new Processamento().criar_processamento(id);
 					processamento.setLayoutX(Double.parseDouble(x));
 					processamento.setLayoutY(Double.parseDouble(y));
+					fs.arrastaItens(root, processamento, Tipos.PROCESSAMENTO.getValue(), fluxograma);
 					root.getChildren().add(processamento);
 				}
 			}

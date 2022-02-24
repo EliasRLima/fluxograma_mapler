@@ -4,7 +4,7 @@ public enum Tipos {
 	
 	/*Todos os tipos podem receber varias ligaçoes, porem somente decisoes podem apontar para varios*/
 	
-	DECISAO(1), //somente decisao aceita apontar mais de uma ligacao //limite de tres ligacoes
+	DECISAO(1), //somente decisao aceita apontar mais de uma ligacao //limite de apontar para duas
 	ENTRADA(2),
 	SAIDA(3),
 	FIM(4),
