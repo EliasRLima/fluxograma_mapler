@@ -69,8 +69,9 @@ public class BaseController implements Initializable {
   private int mouse_status = 1; //mover
   
   //controlar uniao entre dois elementos
-  private AnchorPane associarPane = null;
-  private int associarTipo = 0;
+  //private AnchorPane associarPane = null;
+  //private int associarTipo = 0;
+  private FigurasService figurasService = new FigurasService();
   
   //estrutura dos dados
   private Fluxograma fluxograma;
@@ -132,9 +133,7 @@ public class BaseController implements Initializable {
 	  btn_clear_console.setOnAction(e -> {
 		  texto.clear();
 		  texto.setText("<< Console >>");
-	  });
-	  
-	  
+	  });  
   }
   
   private void btns () {
@@ -205,8 +204,9 @@ public class BaseController implements Initializable {
 		  
 		  mouse_status = 1;//mover
 		  root.setCursor ( Cursor.CLOSED_HAND );
-		  associarPane = null;
-		  associarTipo = 0;
+		  
+		  figurasService.setAssociarPane(null);
+		  figurasService.setAssociarTipo(0);
 	  });
 	  
 	  btn_remove.setOnAction(e->{
@@ -216,8 +216,8 @@ public class BaseController implements Initializable {
 		  
 		  mouse_status = 2;//remover
 		  root.setCursor ( Cursor.CROSSHAIR );
-		  associarPane = null;
-		  associarTipo = 0;
+		  figurasService.setAssociarPane(null);
+		  figurasService.setAssociarTipo(0);
 	  });
 	  
 	  btn_associate.setOnAction(e->{
@@ -231,194 +231,16 @@ public class BaseController implements Initializable {
 	  
   };
   
-  
-  private void arrastaItens ( final AnchorPane figuras, int tipo ) {
-      figuras.setOnMousePressed ( new EventHandler < MouseEvent > ( ) {
-           @Override
-           public void handle ( MouseEvent mouseEvent ) {
-        	  if(mouse_status == 1) {
-        		  x = figuras.getLayoutX ( ) - mouseEvent.getSceneX ( );
-                  y = figuras.getLayoutY ( ) - mouseEvent.getSceneY ( );
-                  
-                  
-                  //verificar se nao esta em associacao para refazer a linha
-                  ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
-                  if(ascc.size() > 0) {
-                	  for(Associacao a : ascc) {
-                		  criar_linha(a);
-                	  }
-                  }
-        	  }
-           }
-      } );
-      figuras.setOnMouseReleased ( new EventHandler < MouseEvent > ( ) {
-           @Override
-           public void handle ( MouseEvent mouseEvent ) {
-        	   if(mouse_status == 1) {
-        		   
-        		 //verificar se nao esta em associacao para refazer a linha
-                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
-                   if(ascc.size() > 0) {
-                 	  for(Associacao a : ascc) {
-                 		  criar_linha(a);
-                 	  }
-                   }
-                   
-         	  }else if(mouse_status == 2) {
-         		  root.getChildren().remove(figuras);
-         		  
-         		  if(tipo == 4) {
-         			  fluxograma.setFim(null); //resetando o fim
-         		  }else if(tipo == 5) {
-         			  fluxograma.setInicio(null); //resetando o inicio
-         		  }
-         		  
-         		//verificar se nao esta em associacao para desfazer a linha
-                  ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
-                  if(ascc.size() > 0) {
-                	  for(Associacao a : ascc) {
-                		  
-                		  Line la = a.getLinha();
-                		  if (la != null) {
-                			  root.getChildren().remove(la);
-                		  }
-                		  a.setLine(null);
-                		  
-                		  Label lb = a.getLabel();
-                		  if(lb != null) {
-                			  root.getChildren().remove(lb);
-                		  }
-                		  a.setLabel(null);
-                		  fluxograma.desfazerAssociacao(a);
-                	  }
-                  }
-         		  
-         	  }else if(mouse_status == 3) {
-         		  if(associarPane != null) {
-         			 Associacao as;
-         			  if(associarTipo == 4 || tipo == 5) {
-         				 as = new Associacao(figuras, tipo, associarPane, associarTipo);
-         			  }else {
-         				 as = new Associacao(associarPane, associarTipo, figuras, tipo);
-         			  }
-         			  
-         			  boolean bloquear = fluxograma.bloquearAssociacao(as);
-         			  if(bloquear) {
-         				 sendMsgConsole("associacao bloqueada.");
-         				  associarPane = null;
-         				  associarTipo = 0;
-         			  }else {
-         				  fluxograma.novaAssociacao(as);
-            			  criar_linha(as);
-            			 
-            			  associarPane = null;
-            			  associarTipo = 0;
-         			  }
-         			  
-         		  }else {
-         			  associarPane = figuras;
-         			  associarTipo = tipo;
-         		  }
-         	  }
-        	   
-               
-           }
-      } );
-      figuras.setOnMouseDragged ( new EventHandler < MouseEvent > ( ) {
-           @Override
-           public void handle ( MouseEvent mouseEvent ) {
-        	   if(mouse_status == 1) {
-        		   figuras.setLayoutX ( mouseEvent.getSceneX ( ) + x );
-                   figuras.setLayoutY ( mouseEvent.getSceneY ( ) + y );
-                   
-                 //verificar se nao esta em associacao para refazer a linha
-                   ArrayList<Associacao> ascc = fluxograma.getAssociacoesByPane(figuras);
-                   if(ascc.size() > 0) {
-                 	  for(Associacao a : ascc) {
-                 		  criar_linha(a);
-                 	  }
-                   }
-         	  }
-                
-           }
-      } );
-  }
-  
   private void cria_figura (AnchorPane ap, int tipo) {
       ap.setLayoutX(0);
       ap.setLayoutY(0);
-      arrastaItens ( ap , tipo );
+      //arrastaItens ( ap , tipo );
+      figurasService.arrastaItens(root, ap, tipo, mouse_status, fluxograma);
       root.getChildren ( ).add (ap);
   }
   
   
-  private void criar_linha(Associacao as) {
-	  
-	  Center startCenter = new Center(as.getPane1());
-	  Center endCenter   = new Center(as.getPane2());
-	  
-	  Line line = new Line(startCenter.centerXProperty().intValue(),
-	          			   startCenter.centerYProperty().intValue(),
-	          			   endCenter.centerXProperty().intValue(),
-	          			   endCenter.centerYProperty().intValue());
-	  
-
-	  Label lb = as.getLabel();
-	  if (lb != null) {
-		  root.getChildren().remove(lb);
-	  }else {
-		  as.setLabel(new Label(fluxograma.nextTextoDecisao(as)));
-		  if(as.getLabel().getText().equals("Sim")) {
-			  as.getLabel().setTextFill(Color.GREEN);
-		  }else {
-			  as.getLabel().setTextFill(Color.RED);
-		  }
-	  }
-	  Label lab = as.getLabel();
-	  
-	  lab.setOnMouseClicked(e -> {
-		  if(lab.getText().equals("Sim")) {
-			  lab.setText("Nao");
-			  lab.setTextFill(Color.RED);
-		  }else {
-			  lab.setText("Sim");
-			  lab.setTextFill(Color.GREEN);
-		  }
-		  fluxograma.inverterTextoDecisao(as);
-	  });
-	  
-	  int x = (endCenter.centerXProperty().intValue() + startCenter.centerXProperty().intValue())/2;
-	  int y = (endCenter.centerYProperty().intValue() + startCenter.centerYProperty().intValue())/2;
-	  lab.setLayoutX(x+3);
-	  lab.setLayoutY(y+3);
-	  
-	  if(as.getTipo_pane1() == 1) {
-		  //line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");
-		  line.setCursor(Cursor.CLOSED_HAND);
-		  lab.setCursor(Cursor.CLOSED_HAND);
-		  as.setLabel(lab);
-		  root.getChildren().add(lab);
-		  lab.toFront();
-	  }
-	  
-	  line.setOnMouseClicked(e -> {
-		  if(mouse_status == 2) {
-			  root.getChildren().remove(line);
-			  as.setLine(null);
-			  fluxograma.desfazerAssociacao(as);
-		  }
-	  });
-	  
-	  Line la = as.getLinha();
-	  if (la != null) {
-		  root.getChildren().remove(la);
-	  }
-	  as.setLine(line);
-	  root.getChildren().add(line);
-	  as.getPane1().toFront();
-	  as.getPane2().toFront();
-	  
-  }
+  
   
   private void sendMsgConsole(String msg) {
 	  texto.appendText("\n" + msg);
