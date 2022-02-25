@@ -58,45 +58,13 @@ public class FMX {
 
 	}
 	
-	public Fluxograma string2Fluxograma(String conteudo) {
-		//lembrar de verificar inicio e fim
-				int i = 1;
-				int lerfiguras = 0;
-				int lerassociacao = 0;
-				AnchorPane root = new AnchorPane();
-				
-				for(String linha : conteudo.split("\n")) {
-					if(linha.equals("//elementos")) {
-						lerfiguras = 1;
-						lerassociacao = 0;
-						continue;
-					}
-					
-					if(linha.equals("//associacao")) {
-						lerfiguras = 0;
-						lerassociacao = 1;
-						continue;
-					}
-					
-					if(lerfiguras == 1) {
-						continue;
-					}
-					
-					if(lerassociacao == 1) {
-						
-					}
-						
-				}
-				return null;
-	}
 	
-	public AnchorPane string2Pane(String conteudo, Fluxograma fluxograma) {
+	public AnchorPane string2Pane(String conteudo, Fluxograma fluxograma, FigurasService fs) {
 		//lembrar de verificar inicio e fim
 		int i = 1;
 		int lerfiguras = 0;
 		int lerassociacao = 0;
 		AnchorPane root = new AnchorPane();
-		FigurasService fs = new FigurasService();
 		
 		for(String linha : conteudo.split("\n")) {
 			if(linha.equals("//elementos")) {
@@ -158,6 +126,8 @@ public class FMX {
 			
 			if(lerassociacao == 1) {
 				continue;
+				
+				//construir o fluxograma e dps no controller desenhas as linhas
 			}
 				
 		}

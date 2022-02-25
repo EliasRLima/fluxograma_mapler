@@ -137,11 +137,11 @@ public class BaseController implements Initializable {
 		  if (boo) {
 			  String aberto = ArquivoService.getInstance().getConteudo();
 			  root.getChildren().clear();
-			  root.getChildren().setAll(new FMX().string2Pane(aberto, fluxograma).getChildren());
-			  addConsole();
 			  fluxograma.iniciaAssociacoes();
 			  fluxograma.setFim(null);
 			  fluxograma.setInicio(null);
+			  root.getChildren().setAll(new FMX().string2Pane(aberto, fluxograma, figurasService).getChildren());
+			  addConsole();
 		  }
 	  });
 	  

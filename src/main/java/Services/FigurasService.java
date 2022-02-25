@@ -54,6 +54,7 @@ public class FigurasService {
 	}
 
 	public void arrastaItens (AnchorPane root, final AnchorPane figuras, int tipo, Fluxograma fluxograma) {
+		
 	      figuras.setOnMousePressed ( new EventHandler < MouseEvent > ( ) {
 	           @Override
 	           public void handle ( MouseEvent mouseEvent ) {
@@ -130,8 +131,6 @@ public class FigurasService {
 	         				  associarTipo = 0;
 	         			  }else {
 	         				  fluxograma.novaAssociacao(as);
-	         				 criar_linha(root, fluxograma, as);
-	            			 
 	            			  associarPane = null;
 	            			  associarTipo = 0;
 	         			  }
