@@ -143,6 +143,8 @@ public class BaseController implements Initializable {
 			  root.getChildren().setAll(new FMX().string2Pane(aberto, fluxograma, figurasService).getChildren());
 			  for(Associacao a : fluxograma.getAssociacoes()) {
 				 figurasService.arrastaItens(root, a.getPane1(), a.getTipo_pane1(), fluxograma);
+				 figurasService.arrastaItens(root, a.getPane2(), a.getTipo_pane2(), fluxograma);
+				 figurasService.criar_linha(root, fluxograma, a);
 			  }
 			  addConsole();
 		  }
@@ -238,9 +240,6 @@ public class BaseController implements Initializable {
       figurasService.arrastaItens(root, ap, tipo, fluxograma);
       root.getChildren ( ).add (ap);
   }
-  
-  
-  
   
   private void sendMsgConsole(String msg) {
 	  texto.appendText("\n" + msg);

@@ -131,6 +131,7 @@ public class FigurasService {
 	         				  associarTipo = 0;
 	         			  }else {
 	         				  fluxograma.novaAssociacao(as);
+	         				  criar_linha(root, fluxograma, as);
 	            			  associarPane = null;
 	            			  associarTipo = 0;
 	         			  }
