@@ -141,6 +141,9 @@ public class BaseController implements Initializable {
 			  fluxograma.setFim(null);
 			  fluxograma.setInicio(null);
 			  root.getChildren().setAll(new FMX().string2Pane(aberto, fluxograma, figurasService).getChildren());
+			  for(Associacao a : fluxograma.getAssociacoes()) {
+				 figurasService.arrastaItens(root, a.getPane1(), a.getTipo_pane1(), fluxograma);
+			  }
 			  addConsole();
 		  }
 	  });

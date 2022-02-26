@@ -9,6 +9,7 @@ import figuras.Inicio;
 import figuras.Processamento;
 import figuras.Saida;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import listas.Tipos;
 
@@ -125,9 +126,36 @@ public class FMX {
 			}
 			
 			if(lerassociacao == 1) {
-				continue;
+				String[] elementos = linha.split(";");
+				String id1 = elementos[0];
+				String caminho = elementos[1];
+				String id2 = elementos[2];
 				
-				//construir o fluxograma e dps no controller desenhas as linhas
+				AnchorPane ap1 = null, ap2 = null;
+				int tp1 = 0, tp2 = 0;
+				
+				for(Node a : root.getChildren()) {
+					if(a instanceof AnchorPane) {
+						if(a.getId().equals(id1)) {
+							ap1 = (AnchorPane)a;
+							tp1 = Tipos.UNDEF.getValueByName(id1);
+						}
+						if(a.getId().equals(id2)) {
+							ap2 = (AnchorPane)a;
+							tp2 = Tipos.UNDEF.getValueByName(id2);
+						}
+						if(ap1 != null && ap2 != null) {
+							break;
+						}
+					}
+				}
+				
+				if(ap1 != null && ap2 != null) {
+					Associacao as = new Associacao(ap1, tp1, ap2, tp2);
+					if(id1.contains("decisao") && caminho != "null")
+						as.setLabel( new Label(caminho));
+					fluxograma.novaAssociacao(as);
+				}
 			}
 				
 		}
