@@ -24,6 +24,10 @@ public class Fluxograma {
 		return instancia;
 	}
 	
+	public ArrayList<Associacao> getAssociacoes() {
+		return fluxo;
+	}
+
 	public boolean existeInicio() {
 		if(inicio==null)
 			return false;
