@@ -286,6 +286,10 @@ public class FigurasService {
 			  if(mouse_status == 2) {
 				  root.getChildren().remove(line);
 				  as.setLine(null);
+				  root.getChildren().remove(seta);
+				  as.setSeta(null);
+				  root.getChildren().remove(lab);
+				  as.setLabel(null);
 				  fluxograma.desfazerAssociacao(as);
 			  }
 		  });
