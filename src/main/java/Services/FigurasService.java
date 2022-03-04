@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import diagrama.Associacao;
 import diagrama.Fluxograma;
+import figuras.Seta;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -111,6 +112,13 @@ public class FigurasService {
 	                			  root.getChildren().remove(lb);
 	                		  }
 	                		  a.setLabel(null);
+	                		  
+	                		  Seta st = a.getSeta();
+	                		  if(st != null) {
+	                			  root.getChildren().remove(st);
+	                		  }
+	                		  a.setSeta(null);
+	                		  
 	                		  fluxograma.desfazerAssociacao(a);
 	                	  }
 	                  }
@@ -131,6 +139,7 @@ public class FigurasService {
 	         				  associarTipo = 0;
 	         			  }else {
 	         				  fluxograma.novaAssociacao(as);
+	         				  criar_linha(root, fluxograma, as);
 	            			  associarPane = null;
 	            			  associarTipo = 0;
 	         			  }
@@ -163,6 +172,54 @@ public class FigurasService {
 	           }
 	      } );
 	  }
+	
+	/*public void criar_linha(AnchorPane root, Fluxograma fluxograma, Associacao as) {
+		  
+		  Seta line = new Seta();
+		  
+		  Center pane1 = new Center(as.getPane1());
+		  Center pane2 = new Center(as.getPane2());
+		  
+		  line.setStartX(pane1.centerXProperty().intValue());
+		  line.setStartY(pane1.centerYProperty().intValue());
+		  
+		  if(pane1.centerXProperty().intValue() > pane2.centerXProperty().intValue()) {
+			  int x = (pane1.centerXProperty().intValue() - pane2.centerXProperty().intValue())%10;
+			  line.setEndX(pane2.centerXProperty().intValue() + x);
+		  }else {
+			  int x = (pane2.centerXProperty().intValue() - pane1.centerXProperty().intValue())%10;
+			  line.setEndX(pane2.centerXProperty().intValue() - x);
+		  }
+		  
+		  if(pane1.centerYProperty().intValue() > pane2.centerYProperty().intValue()) {
+			  int y = (pane1.centerYProperty().intValue() - pane2.centerYProperty().intValue())%10;
+			  line.setEndY(pane2.centerYProperty().intValue() + y);
+		  }else {
+			  int y = (pane2.centerYProperty().intValue() - pane1.centerYProperty().intValue())%10;
+			  line.setEndY(pane2.centerYProperty().intValue() - y);
+		  }
+		  
+		  
+		  
+		  line.setOnMouseClicked(e -> {
+			  if(mouse_status == 2) {
+				  root.getChildren().remove(line);
+				  as.setLine(null);
+				  fluxograma.desfazerAssociacao(as);
+			  }
+		  });
+		  
+		  Seta la = as.getLinha();
+		  if (la != null) {
+			  root.getChildren().remove(la);
+		  }
+		  as.setLine(line);
+		  
+		  root.getChildren().add(line);
+		  as.getPane1().toFront();
+		  as.getPane2().toFront();
+		  
+	  }*/
 	
 	public void criar_linha(AnchorPane root, Fluxograma fluxograma, Associacao as) {
 		  
@@ -203,6 +260,18 @@ public class FigurasService {
 		  int y = (endCenter.centerYProperty().intValue() + startCenter.centerYProperty().intValue())/2;
 		  lab.setLayoutX(x+3);
 		  lab.setLayoutY(y+3);
+		  
+		  Seta seta = new Seta();
+		  seta.setStartX(startCenter.centerXProperty().intValue());
+		  seta.setStartY(startCenter.centerYProperty().intValue()); //25% position
+		  seta.setEndX((endCenter.centerXProperty().intValue() + startCenter.centerXProperty().intValue())/2);
+		  seta.setEndY((endCenter.centerYProperty().intValue() + startCenter.centerYProperty().intValue())/2); 
+		  Seta st = as.getSeta();
+		  if(st != null) {
+			  root.getChildren().remove(st);
+		  }
+		  as.setSeta(seta);
+		  root.getChildren().add(seta);
 		  
 		  if(as.getTipo_pane1() == 1) {
 			  //line.setStyle("-fx-stroke-width: 3;-fx-stroke: lime");

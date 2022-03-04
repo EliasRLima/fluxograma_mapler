@@ -1,5 +1,6 @@
 package diagrama;
 
+import figuras.Seta;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
@@ -13,6 +14,7 @@ public class Associacao {
 	private int tipo_pane1, tipo_pane2;
 	private Line linha;
 	private Label label;
+	private Seta seta;
 
 	public Associacao(AnchorPane pane1, int tp_pane1, AnchorPane pane2, int tp_pane2) {
 		super();
@@ -23,6 +25,16 @@ public class Associacao {
 		
 	}
 	
+	
+	
+	public Seta getSeta() {
+		return seta;
+	}
+
+	public void setSeta(Seta seta) {
+		this.seta = seta;
+	}
+
 	public Line getLinha() {
 		return this.linha;
 	}
