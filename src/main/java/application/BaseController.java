@@ -37,6 +37,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import diagrama.Associacao;
 import diagrama.FMX;
 import diagrama.Fluxograma;
+import diagrama.Tradutor;
 import figuras.Console;
 import figuras.Decisao;
 import figuras.Entrada;
@@ -55,7 +56,7 @@ public class BaseController implements Initializable {
   JFXButton btn_inicio, btn_fim, btn_decisao, btn_processamento, btn_entrada, btn_saida;
   
   @FXML
-  JFXButton btn_move, btn_associate, btn_remove, btn_open, btn_save;
+  JFXButton btn_move, btn_associate, btn_remove, btn_open, btn_save, btn_traduzir;
   
   @FXML
   AnchorPane root;
@@ -152,6 +153,11 @@ public class BaseController implements Initializable {
 	  
 	  btn_save.setOnAction(e -> {
 		  ArquivoService.getInstance().salvar(carregarFluxograma());
+	  });
+	  
+	  btn_traduzir.setOnAction(e -> {
+		  String portugol = Tradutor.getTraducao2Portugol(fluxograma);
+		  System.out.println("Traducao:\n" + portugol);
 	  });
 	  
 	  btn_processamento.setOnAction(e -> {

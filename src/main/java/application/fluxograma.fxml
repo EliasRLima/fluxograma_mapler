@@ -50,6 +50,15 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
                            <children>
+                              <JFXButton fx:id="btn_traduzir" contentDisplay="CENTER" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon glyphName="COMMENTS" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+                           <children>
                               <JFXButton fx:id="btn_move" contentDisplay="CENTER" style="-fx-border-color: #790b77;" text=" ">
                                  <graphic>
                                     <FontAwesomeIcon glyphName="PENCIL" />
