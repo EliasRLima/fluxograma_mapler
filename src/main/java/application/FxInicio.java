@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 //import javafx.stage.StageStyle;
+import javafx.stage.StageStyle;
 
 /**
  * Classe principal para executar a aplicação
@@ -25,7 +26,7 @@ public class FxInicio extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		//InicioService.iniciarClasse(stage);
-		//stage.initStyle(StageStyle.UNDECORATED); // removendo botoes padrao
+		stage.initStyle(StageStyle.UNDECORATED); // removendo botoes padrao
 		URL resources = getClass().getResource("");
 		//System.out.println(resources.getPath());
 		Parent root = FXMLLoader.load(getClass().getResource("fluxograma.fxml"));

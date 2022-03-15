@@ -4,137 +4,164 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import com.jfoenix.controls.JFXTextArea?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BaseController">
-	<children>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-   <top>
-      <AnchorPane prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #151515;" BorderPane.alignment="CENTER" />
-   </top>
-   <left>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #909090;" BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BaseController">
+   <children>
+      <BorderPane layoutX="92.0" layoutY="65.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #282a36;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox layoutX="100.0" layoutY="38.0" prefHeight="200.0" prefWidth="100.0" style="-fx-spacing: 3;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <HBox alignment="TOP_CENTER" prefWidth="200.0">
+                        <MenuBar style="-fx-background-color: #151515;" HBox.hgrow="ALWAYS">
+                          <menus>
+                            <Menu mnemonicParsing="false" text="Arquivo">
+                              <items>
+                                <MenuItem fx:id="mn_novo" mnemonicParsing="false" text="Novo" />
+                                    <MenuItem fx:id="mn_abrir" mnemonicParsing="false" text="Abrir" />
+                                    <MenuItem fx:id="mn_salvar" mnemonicParsing="false" text="Salvar" />
+                                    <MenuItem fx:id="mn_salvarcomo" mnemonicParsing="false" text="Salvar como..." />
+                                    <MenuItem fx:id="mn_sair" mnemonicParsing="false" text="Sair" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Traducao">
+                              <items>
+                                <MenuItem fx:id="mn_traduzir_pt" mnemonicParsing="false" text="Portugol" />
+                              </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Sobre">
+                              <items>
+                                <MenuItem fx:id="mn_sb_fluxogramas" mnemonicParsing="false" text="Fluxogramas" />
+                                    <MenuItem fx:id="mn_sb_portugol" mnemonicParsing="false" text="Portugol" />
+                                    <MenuItem fx:id="mn_sobre" mnemonicParsing="false" text="Sobre" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
+                        <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="200.0" style="-fx-background-color: #151515;">
                            <children>
-                              <Label text="MAPLER - Fluxograma" textFill="#790b77">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
+                              <JFXButton fx:id="btn_minus" contentDisplay="GRAPHIC_ONLY" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="#ccc4c4" glyphName="MINUS" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btn_max" contentDisplay="GRAPHIC_ONLY" text=" ">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="#ccc4c4" glyphName="SQUARE_ALT" />
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btn_close" contentDisplay="GRAPHIC_ONLY">
+                                 <graphic>
+                                    <FontAwesomeIcon fill="#da1a1a" glyphName="CLOSE" />
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" right="5.0" top="2.0" />
+               </BorderPane.margin></AnchorPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="200.0" style="-fx-background-color: #282a36;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <HBox alignment="TOP_CENTER" style="-fx-border-color: white;">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Acões" textFill="WHITE" />
+                                    <VBox>
+                                       <children>
+                                          <JFXButton fx:id="btn_move" text="Mover" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#2446da" glyphName="ARROWS" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_associate" text="Associar" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#e1c62c" glyphName="PLUG" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_remove" text="Remover" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#d34444" glyphName="CLOSE" />
+                                             </graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
                            </children>
                            <VBox.margin>
                               <Insets bottom="15.0" top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
+                        <HBox alignment="TOP_CENTER" style="-fx-border-color: white;">
                            <children>
-                              <JFXButton fx:id="btn_open" contentDisplay="CENTER" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="FOLDER_OPEN" />
-                                 </graphic>
-                              </JFXButton>
-                              <JFXButton fx:id="btn_save" contentDisplay="CENTER" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="SAVE" />
-                                 </graphic>
-                              </JFXButton>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0">
+                                 <children>
+                                    <Label text="Figuras" textFill="WHITE" />
+                                    <VBox prefHeight="200.0">
+                                       <children>
+                                          <JFXButton fx:id="btn_inicio" text="Inicio" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#3dfcff" glyphName="CIRCLE_ALT" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_entrada" text="Entrada" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#3dfcff" glyphName="ALIGN_JUSTIFY" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_saida" text="Saida" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#3dfcff" glyphName="DESKTOP" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_decisao" text="Decisao" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#3dfcff" glyphName="SQUARE_ALT" rotate="45.0" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_processamento" text="Processamento" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#3dfcff" glyphName="SQUARE" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_fim" text="Fim" textFill="#c9c7c7">
+                                             <graphic>
+                                                <FontAwesomeIcon fill="#3dfcff" glyphName="CIRCLE" />
+                                             </graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
-                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
-                           <children>
-                              <JFXButton fx:id="btn_traduzir" contentDisplay="CENTER" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="COMMENTS" />
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                        <HBox alignment="TOP_CENTER" prefHeight="40.0" prefWidth="200.0">
-                           <children>
-                              <JFXButton fx:id="btn_move" contentDisplay="CENTER" style="-fx-border-color: #790b77;" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="PENCIL" />
-                                 </graphic>
-                              </JFXButton>
-                              <JFXButton fx:id="btn_associate" contentDisplay="CENTER" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIcon glyphName="ARROW_RIGHT" />
-                                 </graphic>
-                              </JFXButton>
-                              <JFXButton fx:id="btn_remove" contentDisplay="CENTER" text=" ">
-                                 <graphic>
-                                    <FontAwesomeIcon fill="RED" glyphName="CLOSE" />
-                                 </graphic>
-                              </JFXButton>
-                           </children>
-                        </HBox>
-                        <JFXButton fx:id="btn_inicio" text="INICIO">
-                           <graphic>
-                              <FontAwesomeIcon fill="#790b77" glyphName="CIRCLE_ALT" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="30.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_entrada" text="ENTRADA">
-                           <graphic>
-                              <FontAwesomeIcon fill="#790b77" glyphName="ALIGN_JUSTIFY" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="30.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_saida" text="SAIDA">
-                           <graphic>
-                              <FontAwesomeIcon fill="#790b77" glyphName="DESKTOP" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="30.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_decisao" text="DECISAO">
-                           <graphic>
-                              <FontAwesomeIcon fill="#790b77" glyphName="SQUARE_ALT" rotate="45.0" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="30.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_processamento" text="PROCESSAMENTO">
-                           <graphic>
-                              <FontAwesomeIcon fill="#790b77" glyphName="SQUARE" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="30.0" />
-                           </VBox.margin>
-                        </JFXButton>
-                        <JFXButton fx:id="btn_fim" text="FIM">
-                           <graphic>
-                              <FontAwesomeIcon fill="#790b77" glyphName="CIRCLE" />
-                           </graphic>
-                           <VBox.margin>
-                              <Insets left="30.0" />
-                           </VBox.margin>
-                        </JFXButton>
                      </children>
                   </VBox>
                </children>
-      </AnchorPane>
-   </left>
-   <center>
-      <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-      	<children>
-		</children>
-	  </AnchorPane>
-   </center>
-</BorderPane>
-	</children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
 </AnchorPane>

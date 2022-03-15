@@ -16,6 +16,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -56,7 +57,10 @@ public class BaseController implements Initializable {
   JFXButton btn_inicio, btn_fim, btn_decisao, btn_processamento, btn_entrada, btn_saida;
   
   @FXML
-  JFXButton btn_move, btn_associate, btn_remove, btn_open, btn_save, btn_traduzir;
+  JFXButton btn_move, btn_associate, btn_remove;
+  
+  @FXML
+  MenuItem mn_abrir, mn_salvar, mn_salvarcomo, mn_sair, mn_traduzir_pt, mn_sb_portugol, mn_sb_fluxogramas, mn_sobre;
   
   @FXML
   AnchorPane root;
@@ -133,7 +137,7 @@ public class BaseController implements Initializable {
   
   private void btns () {
 	  
-	  btn_open.setOnAction(e -> {
+	  mn_abrir.setOnAction(e -> {
 		  boolean boo = ArquivoService.getInstance().abrir();
 		  if (boo) {
 			  String aberto = ArquivoService.getInstance().getConteudo();
@@ -151,11 +155,17 @@ public class BaseController implements Initializable {
 		  }
 	  });
 	  
-	  btn_save.setOnAction(e -> {
+	  mn_salvar.setOnAction(e -> {
 		  ArquivoService.getInstance().salvar(carregarFluxograma());
 	  });
 	  
-	  btn_traduzir.setOnAction(e -> {
+	  mn_salvarcomo.setOnAction(e -> {
+		  FMX aux = new FMX();
+		  aux.fluxograma2String(root, fluxograma);
+		  ArquivoService.getInstance().salvarComo(aux.getString());
+	  });
+	  
+	  mn_traduzir_pt.setOnAction(e -> {
 		  String portugol = Tradutor.getTraducao2Portugol(fluxograma);
 		  System.out.println("Traducao:\n" + portugol);
 	  });
