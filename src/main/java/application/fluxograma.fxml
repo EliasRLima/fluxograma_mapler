@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BaseController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BaseController">
    <children>
       <BorderPane layoutX="92.0" layoutY="65.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #282a36;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -70,7 +70,7 @@
             </AnchorPane>
          </top>
          <center>
-            <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="root" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f0f1f4;" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" right="5.0" top="2.0" />
                </BorderPane.margin></AnchorPane>
@@ -84,23 +84,32 @@
                            <children>
                               <VBox alignment="TOP_CENTER">
                                  <children>
-                                    <Label text="Acões" textFill="WHITE" />
+                                    <Label text="Acões" textFill="WHITE">
+                                       <VBox.margin>
+                                          <Insets top="2.0" />
+                                       </VBox.margin></Label>
                                     <VBox>
                                        <children>
-                                          <JFXButton fx:id="btn_move" text="Mover" textFill="#c9c7c7">
+                                          <JFXButton fx:id="btn_move" prefHeight="25.0" prefWidth="80.0" text="Mover" textFill="#c9c7c7">
                                              <graphic>
                                                 <FontAwesomeIcon fill="#2446da" glyphName="ARROWS" />
                                              </graphic>
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
                                           </JFXButton>
-                                          <JFXButton fx:id="btn_associate" text="Associar" textFill="#c9c7c7">
+                                          <JFXButton fx:id="btn_associate" prefHeight="25.0" prefWidth="80.0" text="Associar" textFill="#c9c7c7">
                                              <graphic>
                                                 <FontAwesomeIcon fill="#e1c62c" glyphName="PLUG" />
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="btn_remove" text="Remover" textFill="#c9c7c7">
+                                          <JFXButton fx:id="btn_remove" prefHeight="25.0" prefWidth="80.0" text="Remover" textFill="#c9c7c7">
                                              <graphic>
                                                 <FontAwesomeIcon fill="#d34444" glyphName="CLOSE" />
                                              </graphic>
+                                             <VBox.margin>
+                                                <Insets bottom="5.0" />
+                                             </VBox.margin>
                                           </JFXButton>
                                        </children>
                                     </VBox>
@@ -115,13 +124,19 @@
                            <children>
                               <VBox alignment="TOP_CENTER" prefHeight="200.0">
                                  <children>
-                                    <Label text="Figuras" textFill="WHITE" />
+                                    <Label text="Figuras" textFill="WHITE">
+                                       <VBox.margin>
+                                          <Insets top="2.0" />
+                                       </VBox.margin></Label>
                                     <VBox prefHeight="200.0">
                                        <children>
                                           <JFXButton fx:id="btn_inicio" text="Inicio" textFill="#c9c7c7">
                                              <graphic>
                                                 <FontAwesomeIcon fill="#3dfcff" glyphName="CIRCLE_ALT" />
                                              </graphic>
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
                                           </JFXButton>
                                           <JFXButton fx:id="btn_entrada" text="Entrada" textFill="#c9c7c7">
                                              <graphic>

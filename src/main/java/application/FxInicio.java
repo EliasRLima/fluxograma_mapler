@@ -2,7 +2,7 @@ package application;
 
 import java.net.URL;
 
-
+import Services.InicioService;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +25,7 @@ import javafx.stage.StageStyle;
 public class FxInicio extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
-		//InicioService.iniciarClasse(stage);
+		InicioService.iniciarClasse(stage);
 		stage.initStyle(StageStyle.UNDECORATED); // removendo botoes padrao
 		URL resources = getClass().getResource("");
 		//System.out.println(resources.getPath());

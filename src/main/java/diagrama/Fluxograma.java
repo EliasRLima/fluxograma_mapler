@@ -64,6 +64,13 @@ public class Fluxograma {
 		fluxo.add(as);
 	}
 	
+	public void reiniciar() {
+		instancia = new Fluxograma();
+		instancia.iniciaAssociacoes();
+		instancia.setFim(null);
+		instancia.setInicio(null);
+	}
+	
 	public boolean ligacaoCompleta() { //errado, tem de verificar se partindo de inicio chega em fim. //se tiver decisao tem de chegar em fim por ambos os fluxos
 		int inicio = 0;
 		int fim = 0;

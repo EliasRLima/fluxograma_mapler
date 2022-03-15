@@ -20,6 +20,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
@@ -34,6 +35,7 @@ import com.jfoenix.controls.JFXTextArea;
 
 import Services.ArquivoService;
 import Services.FigurasService;
+import Services.InicioService;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import diagrama.Associacao;
 import diagrama.FMX;
@@ -53,6 +55,9 @@ import figuras.Saida;
  */
 public class BaseController implements Initializable {
 
+  @FXML	
+  JFXButton btn_minus, btn_max, btn_close;	
+  
   @FXML
   JFXButton btn_inicio, btn_fim, btn_decisao, btn_processamento, btn_entrada, btn_saida;
   
@@ -60,7 +65,7 @@ public class BaseController implements Initializable {
   JFXButton btn_move, btn_associate, btn_remove;
   
   @FXML
-  MenuItem mn_abrir, mn_salvar, mn_salvarcomo, mn_sair, mn_traduzir_pt, mn_sb_portugol, mn_sb_fluxogramas, mn_sobre;
+  MenuItem mn_novo, mn_abrir, mn_salvar, mn_salvarcomo, mn_sair, mn_traduzir_pt, mn_sb_portugol, mn_sb_fluxogramas, mn_sobre;
   
   @FXML
   AnchorPane root;
@@ -70,7 +75,9 @@ public class BaseController implements Initializable {
   GraphicsContext ctx = canvas.getGraphicsContext2D ( );
   double x = 0, y = 0;
   
+  private AnchorPane area_console;
   private FigurasService figurasService = new FigurasService();
+  private InicioService inicialService;
   
   //estrutura dos dados
   private Fluxograma fluxograma;
@@ -81,6 +88,7 @@ public class BaseController implements Initializable {
   public BaseController() throws Exception{
 	  this.fluxograma = Fluxograma.getInstancia();
 	  this.fluxograma.iniciaAssociacoes();
+	  this.inicialService = InicioService.getInstancia();
   }
   
   @Override
@@ -90,6 +98,9 @@ public class BaseController implements Initializable {
 	  root.getChildren ( ).add ( canvas );
 	  root.setCursor ( Cursor.CLOSED_HAND );
 	  addConsole();
+	  btn_move.setStyle("-fx-border-color: #fff;");
+	  btn_associate.setStyle("");
+	  btn_remove.setStyle("");
 	  
   }
   
@@ -100,7 +111,7 @@ public class BaseController implements Initializable {
   }
   
   private void addConsole() {
-	  AnchorPane area_console = new AnchorPane();
+	  area_console = new AnchorPane();
 	  area_console.setPrefSize(200, 100);
 	  
 	  root.getChildren().add(area_console);
@@ -110,7 +121,7 @@ public class BaseController implements Initializable {
 	  texto = new JFXTextArea();
 	  texto.setEditable(false);
 	  texto.setText("<< Console >>");
-	  texto.setStyle("-fx-background-color: white;");
+	  texto.setStyle("-fx-background-color: #a7aabe;");
 	  
 	  JFXButton btn_clear_console = new JFXButton(" ");
 	  btn_clear_console.setStyle("-fx-background-color: #AAA;");
@@ -136,6 +147,66 @@ public class BaseController implements Initializable {
   }
   
   private void btns () {
+	  
+	  btn_minus.setOnAction(e -> { // minimizar aplicacao
+	      this.inicialService.minimizar();
+	    });
+
+	    btn_minus.setOnMouseEntered(e -> {
+	      btn_minus.setStyle("-fx-background-color: #1b1b1b;");
+	    });
+
+	    btn_minus.setOnMouseExited(e -> {
+	      btn_minus.setStyle("");
+	    }); 
+	  
+	  btn_max.setOnAction(e -> { // maximizar aplicacao
+	      int i = this.inicialService.maximizar();
+
+	      if (i == 1) { // maximized
+	        FontAwesomeIcon icon = new FontAwesomeIcon();
+	        icon.setFill(Paint.valueOf("#ccc4c4"));
+	        icon.setIcon(de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons.COMPRESS);
+	        btn_max.setGraphic(icon);
+	      } else { // !maximized
+	        FontAwesomeIcon icon = new FontAwesomeIcon();
+	        icon.setFill(Paint.valueOf("#ccc4c4"));
+	        icon.setIcon(de.jensd.fx.glyphs.fontawesome.FontAwesomeIcons.SQUARE_ALT);
+	        btn_max.setGraphic(icon);
+	      }
+	    });
+
+	    btn_max.setOnMouseEntered(e -> {
+	      btn_max.setStyle("-fx-background-color: #1b1b1b;");
+	    });
+
+	    btn_max.setOnMouseExited(e -> {
+	      btn_max.setStyle("");
+	    });
+	  
+	  btn_close.setOnMouseEntered(e -> {
+	      btn_close.setStyle("-fx-background-color: #1b1b1b;");
+	    });
+
+	    btn_close.setOnMouseExited(e -> {
+	      btn_close.setStyle("");
+	    });
+
+	    btn_close.setOnAction(e -> { // fechar aplicacao
+	    	if(ArquivoService.getInstance().checkAlteracoesNaoSalvas()) {
+	    		System.exit(0);
+	    	}
+	    });
+	  
+	  mn_novo.setOnAction(e -> {
+		  if (ArquivoService.getInstance().checkAlteracoesNaoSalvas()) {
+			  ArquivoService.getInstance().fechar();
+			  root.getChildren().clear();
+			  addConsole();
+			  fluxograma.reiniciar();
+			  fluxograma = Fluxograma.getInstancia();
+		  }
+	  });
 	  
 	  mn_abrir.setOnAction(e -> {
 		  boolean boo = ArquivoService.getInstance().abrir();
@@ -213,20 +284,19 @@ public class BaseController implements Initializable {
 	  
 	  //style="-fx-border-color: #790b77;"
 	  btn_move.setOnAction(e->{
-		  btn_move.setStyle("-fx-border-color: #790b77;");
+		  btn_move.setStyle("-fx-border-color: #fff;");
 		  btn_associate.setStyle("");
 		  btn_remove.setStyle("");
 		  
 		  //mouse_status = 1;//mover
 		  figurasService.setMouse_status(1);
 		  root.setCursor ( Cursor.CLOSED_HAND );
-		  
 		  figurasService.setAssociarPane(null);
 		  figurasService.setAssociarTipo(0);
 	  });
 	  
 	  btn_remove.setOnAction(e->{
-		  btn_remove.setStyle("-fx-border-color: #790b77;");
+		  btn_remove.setStyle("-fx-border-color: #fff;");
 		  btn_associate.setStyle("");
 		  btn_move.setStyle("");
 		  
@@ -235,10 +305,11 @@ public class BaseController implements Initializable {
 		  root.setCursor ( Cursor.CROSSHAIR );
 		  figurasService.setAssociarPane(null);
 		  figurasService.setAssociarTipo(0);
+		  //System.out.println(btn_remove.getWidth() + " " + btn_remove.getHeight());
 	  });
 	  
 	  btn_associate.setOnAction(e->{
-		  btn_associate.setStyle("-fx-border-color: #790b77;");
+		  btn_associate.setStyle("-fx-border-color: #fff;");
 		  btn_move.setStyle("");
 		  btn_remove.setStyle("");
 		  
