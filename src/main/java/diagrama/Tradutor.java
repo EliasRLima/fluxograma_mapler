@@ -46,14 +46,14 @@ public class Tradutor {
 				if(aux==null) {
 					aux = bool;
 					if(a.getLabel().getText().toLowerCase().equals("sim")) {
-						aux = "se variavel == VERDADEIRO entao\n" + aux;
+						aux = "se variavel = \"valor\" entao\n" + aux;
 					}else {
 						aux = "senao\n" + aux;
 					}
 					bool = "";
 				}else {
 					if(a.getLabel().getText().toLowerCase().equals("sim")) {
-						bool = "se variavel == VERDADEIRO entao\n" + bool;
+						bool = "se variavel = \"valor\"  entao\n" + bool;
 					}else {
 						bool = "senao\n" + bool;
 					}
@@ -64,10 +64,10 @@ public class Tradutor {
 				if(bool.contains("senao")) {
 					return aux + bool + "fim se;\n";
 				}else {
-					if(bool.contains("se variavel == VERDADEIRO entao")) {
+					if(bool.contains("se variavel == \"valor\"  entao")) {
 						return bool + aux + "fim se;\n";
 					}else if(bool.equals("") && aux.contains("senao")) { //caso so tenha o caminho "nao" no se
-						return aux.replace("VERDADEIRO", "FALSO") + "fim se;\n"; 
+						return aux.replace("= \"valor\" ", "nao \"valor\" ") + "fim se;\n"; 
 					}else {
 						return aux + "fim se;\n"; //caso so tenha o caminho "sim" no se
 					}
@@ -112,7 +112,7 @@ public class Tradutor {
 			
 			if(!isLoop.equals("false") || isLoop.equals("")) {
 				loop = 1;
-				trecho = "enquanto varivavel != 'FALSO' faca\n" + isLoop + "fim enquanto;";
+				trecho = "enquanto varivavel nao \"valor\" faca\n" + isLoop + "fim enquanto;";
 			}
 		}
 		
@@ -122,9 +122,9 @@ public class Tradutor {
 					if(ap.getId().contains("decisao")) {
 						if(a.getLabel().getText().equals("Sim")) {
 							if(trecho.equals("")) {
-								trecho = "se variavel == VERDADEIRO entao\n" + getTrechoCodigo(fluxo, a.getPane2());
+								trecho = "se variavel = \"valor\" entao\n" + getTrechoCodigo(fluxo, a.getPane2());
 							}else {
-								trecho = "se variavel == VERDADEIRO entao\n" + getTrechoCodigo(fluxo, a.getPane2()) + trecho;
+								trecho = "se variavel = \"valor\" entao\n" + getTrechoCodigo(fluxo, a.getPane2()) + trecho;
 							}
 						}else {
 							if(trecho.equals("")) {
