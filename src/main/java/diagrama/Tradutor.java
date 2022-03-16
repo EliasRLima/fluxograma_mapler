@@ -28,17 +28,91 @@ public class Tradutor {
 		return blocoVariaveis + blocoInicio + Tradutor.getTrechoCodigo(fluxograma, inicio) + "\nfim";
 	}
 	
+	private static String getCodigoLoop(Fluxograma fluxo, AnchorPane inicial, AnchorPane atual) {
+		String bool = "false";
+		String aux = null;
+		
+		if(inicial.equals(atual)) {
+			return "";
+		}else if(atual.getId().contains("fim")) {
+			return "false";
+		}else if(atual.getId().contains("decisao")) {
+			ArrayList<Associacao> lista = fluxo.getAssociacoesByPane1(atual);
+			for(Associacao a : lista) {
+				bool = getCodigoLoop(fluxo, inicial, a.getPane2());
+				if(bool.equals("false"))
+					continue;
+				
+				if(aux==null) {
+					aux = bool;
+					if(a.getLabel().getText().toLowerCase().equals("sim")) {
+						aux = "se variavel == VERDADEIRO entao\n" + aux;
+					}else {
+						aux = "senao\n" + aux;
+					}
+					bool = "";
+				}else {
+					if(a.getLabel().getText().toLowerCase().equals("sim")) {
+						bool = "se variavel == VERDADEIRO entao\n" + bool;
+					}else {
+						bool = "senao\n" + bool;
+					}
+				}
+				
+			}
+			if(aux != null) {
+				if(bool.contains("senao")) {
+					return aux + bool + "fim se;\n";
+				}else {
+					if(bool.contains("se variavel == VERDADEIRO entao")) {
+						return bool + aux + "fim se;\n";
+					}else if(bool.equals("") && aux.contains("senao")) { //caso so tenha o caminho "nao" no se
+						return aux.replace("VERDADEIRO", "FALSO") + "fim se;\n"; 
+					}else {
+						return aux + "fim se;\n"; //caso so tenha o caminho "sim" no se
+					}
+				}
+			}else {
+				if(bool.contains("senao")) {
+					return aux + bool + "fim se;\n";
+				}else {
+					return bool + "fim se;\n";
+				}
+			}
+		}else {
+			ArrayList<Associacao> lista = fluxo.getAssociacoesByPane1(atual);
+			bool = getCodigoByPane(fluxo, atual) + getCodigoLoop(fluxo,inicial,lista.get(0).getPane2());
+		}
+		
+		return bool;
+	}
+	
 	private static String getTrechoCodigo(Fluxograma fluxo, AnchorPane ap) {
 		
 		String trecho = "";
 		ArrayList<Associacao> lista = fluxo.getAssociacoesByPane(ap);
 		int loop = 0;
 		
-		//buscar possivel loop
-		for(Associacao a : lista) {
-			if(a.getPane2().equals(ap)) {
-				//loop
-				loop = 0; //decidir como fazer loops futuramente
+		//buscar possivel loop 
+		ArrayList<Associacao> two = fluxo.getAssociacoesByPane2(ap);
+		if(two.size()>=2) {
+			String isLoop = "";
+			
+			//partindo de ap, chega até ap?
+			if(ap.getId().contains("decisao")) {
+				for(Associacao prox : fluxo.getAssociacoesByPane1(ap)) {
+					isLoop += getCodigoByPane(fluxo, ap) + getCodigoLoop(fluxo, ap, prox.getPane2()); //tratar quando iniciar com decisao
+				}
+			}else {
+				for(Associacao prox : fluxo.getAssociacoesByPane1(ap)) {
+					isLoop += getCodigoByPane(fluxo, ap) + getCodigoLoop(fluxo, ap, prox.getPane2());
+				}
+			}
+			
+			
+			if(!isLoop.equals("false") || isLoop.equals("")) {
+				loop = 1;
+				trecho = "enquanto varivavel != 'FALSO' faca\n" + isLoop + "fim enquanto;";
 			}
 		}
 		

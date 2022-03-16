@@ -102,6 +102,26 @@ public class Fluxograma {
 		return associacoes;
 	}
 	
+	public ArrayList<Associacao> getAssociacoesByPane1(AnchorPane ap) {
+		ArrayList<Associacao> associacoes = new ArrayList<Associacao>();
+		for(Associacao as : fluxo) {
+			if(as.getPane1().equals(ap)) {
+				associacoes.add(as);
+			}
+		}
+		return associacoes;
+	}
+	
+	public ArrayList<Associacao> getAssociacoesByPane2(AnchorPane ap) {
+		ArrayList<Associacao> associacoes = new ArrayList<Associacao>();
+		for(Associacao as : fluxo) {
+			if(as.getPane2().equals(ap)) {
+				associacoes.add(as);
+			}
+		}
+		return associacoes;
+	}
+	
 	public void desfazerAssociacao(Associacao as) {
 		this.fluxo.remove(as);
 	}
